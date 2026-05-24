@@ -1,0 +1,6 @@
+{
+  "name": "Fondation Dr François Katekesha",
+  "description": "The official multi-application portal of the Fondation Docteur François Katekesha (FDFK) in Kasaï-Central, DRC. Features interactive portals for memorials, community programs, volunteer onboarding, and sponsor calculations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

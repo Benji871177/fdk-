@@ -1,0 +1,144 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@300,400,500,600,700&f[]=satoshi@300,400,500,700,900&f[]=general-sans@200,300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,100..1000;1,100..1000&family=Manrope:wght@200..800&family=Inter:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:ital,wght@0,300..800;1,300..800&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Lora", "Satoshi", "Inter", serif;
+  --font-sans: "Inter", "DM Sans", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Clash Display", "General Sans", "Satoshi", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-brand-navy: #123524;
+  --color-brand-navy-light: #15803D;
+  --color-brand-navy-muted: #166534;
+  --color-brand-gold: #F97316;
+  --color-brand-gold-light: #FFEDD5;
+  --color-brand-grey: #64748B;
+  --color-brand-grey-light: #F1F5F9;
+  --color-brand-grey-bg: #F8FAFC;
+}
+
+html {
+  scroll-behavior: smooth;
+  letter-spacing: -0.012em;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: #F8FAFC; /* Clean grey background specified in color flow */
+  color: #0F172A;
+}
+
+/* Elite Fintech Typography Kerning & Spacing Overrides */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-rendering: optimizeLegibility;
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+  letter-spacing: -0.015em;
+  text-rendering: optimizeLegibility;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+/* Spacing and upper elements ratios similar to Linear and Stripe */
+.tracking-widest {
+  letter-spacing: 0.16em !important;
+}
+
+.tracking-wider {
+  letter-spacing: 0.1em !important;
+}
+
+.tracking-wide {
+  letter-spacing: 0.04em !important;
+}
+
+.tracking-tight {
+  letter-spacing: -0.03em !important;
+}
+
+.font-black {
+  font-weight: 900 !important;
+}
+
+.font-extrabold {
+  font-weight: 800 !important;
+}
+
+.font-bold {
+  font-weight: 700 !important;
+}
+
+.font-semibold {
+  font-weight: 600 !important;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}
+
+.font-light {
+  font-weight: 300 !important;
+}
+
+/* Glassmorphic Cards akin to high-end financial dashboard */
+.glass-premium {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-premium-light {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-premium-dark {
+  background: rgba(11, 25, 44, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Floating Golden Orbs */
+@keyframes floatAmbient {
+  0% { transform: translateY(0px) scale(1); opacity: 0.35; }
+  50% { transform: translateY(-15px) scale(1.05); opacity: 0.55; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.35; }
+}
+
+.ambient-orb-emerald {
+  animation: floatAmbient 12s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(18, 53, 36, 0.15) 0%, transparent 70%);
+}
+
+.ambient-orb-gold {
+  animation: floatAmbient 16s ease-in-out infinite;
+  animation-delay: 2s;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.12) 0%, transparent 70%);
+}
+
+/* Custom fade-in on mount */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
