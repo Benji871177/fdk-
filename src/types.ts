@@ -1,6 +1,6 @@
 export type Language = 'FR' | 'EN';
 
-export type ActiveTab = 'home' | 'legacy' | 'impact' | 'donor' | 'volunteer';
+export type ActiveTab = 'home' | 'legacy' | 'impact' | 'volunteer';
 
 export interface VolunteerForm {
   fullName: string;

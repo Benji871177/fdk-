@@ -4,7 +4,6 @@ import { translations } from './data/translations';
 import { HomeOverview } from './components/HomeOverview';
 import { LegacyPanel } from './components/LegacyPanel';
 import { ImpactDirectory } from './components/ImpactDirectory';
-import { DonorCalculator } from './components/DonorCalculator';
 import { VolunteerPortal } from './components/VolunteerPortal';
 import { 
   Heart, 
@@ -33,7 +32,6 @@ export default function App() {
     { id: 'home', label: t.common.about },
     { id: 'legacy', label: t.common.legacy },
     { id: 'impact', label: t.common.impact },
-    { id: 'donor', label: t.common.donor },
     { id: 'volunteer', label: t.common.volunteer }
   ] as const;
 
@@ -113,13 +111,13 @@ export default function App() {
               <span>{language}</span>
             </button>
 
-            {/* Donation Quick Link */}
+            {/* Volunteer Quick Link */}
             <button
-              onClick={() => handleNavigate('donor')}
+              onClick={() => handleNavigate('volunteer')}
               className="hidden sm:inline-flex items-center gap-2 bg-brand-navy hover:bg-brand-navy-light text-white rounded-xl px-4.5 py-2 text-xs font-black tracking-wider uppercase shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all cursor-pointer border border-brand-gold/20"
             >
               <Heart className="h-3.5 w-3.5 fill-current text-brand-gold animate-pulse" />
-              <span>{language === 'FR' ? "Propulser FDK" : "Empower Now"}</span>
+              <span>{language === 'FR' ? "S'engager (FDK)" : "Join Us"}</span>
             </button>
 
             {/* Mobile navigation toggle */}
@@ -151,11 +149,11 @@ export default function App() {
             </button>
           ))}
           <button
-            onClick={() => handleNavigate('donor')}
+            onClick={() => handleNavigate('volunteer')}
             className="w-full text-center flex items-center justify-center gap-2 rounded-xl bg-brand-navy py-3 text-xs font-black uppercase tracking-widest text-white shadow-xs border border-brand-gold/20"
           >
             <Heart className="h-4 w-4 fill-current text-brand-gold" />
-            <span>{language === 'FR' ? "Faire un Don" : "Give Now"}</span>
+            <span>{language === 'FR' ? "S'engager (FDK)" : "Join Us"}</span>
           </button>
         </div>
       )}
@@ -165,7 +163,6 @@ export default function App() {
         {activeTab === 'home' && <HomeOverview language={language} onNavigate={handleNavigate} />}
         {activeTab === 'legacy' && <LegacyPanel language={language} />}
         {activeTab === 'impact' && <ImpactDirectory language={language} />}
-        {activeTab === 'donor' && <DonorCalculator language={language} />}
         {activeTab === 'volunteer' && <VolunteerPortal language={language} />}
       </main>
 

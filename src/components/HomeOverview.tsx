@@ -80,7 +80,7 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
 
             <button
               id="hero-cta-partner"
-              onClick={() => onNavigate('donor')}
+              onClick={() => onNavigate('volunteer')}
               className="rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 px-7 py-4 text-xs font-black tracking-wider uppercase text-white transition-all backdrop-blur-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               {t.home.ctaPartnerButton}
