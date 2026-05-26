@@ -41,7 +41,7 @@ const PremiumCounter: React.FC<{ statText: string }> = ({ statText }) => {
 
   useEffect(() => {
     let startTimestamp: number | null = null;
-    const duration = 1200; // fast-paced premium count-up
+    const duration = 2400; // slower, premium, highly visible count-up
 
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
