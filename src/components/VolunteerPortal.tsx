@@ -87,7 +87,7 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ language }) =>
       <section className="text-center max-w-3xl mx-auto space-y-5">
         <span className="inline-flex items-center gap-2 rounded-full bg-brand-navy/5 px-4 py-1.5 text-3xs font-black text-brand-navy ring-1 ring-brand-gold/20 uppercase tracking-widest font-sans animate-fade-in">
           <Users className="h-4 w-4 text-brand-gold" />
-          <span>FDK RECRUTEMENT SOLIDAIRE</span>
+          <span>FDFK RECRUTEMENT SOLIDAIRE</span>
         </span>
         <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-brand-navy tracking-tight">
           {t.volunteer.title}
@@ -145,8 +145,8 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ language }) =>
         <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
           <p className="text-slate-500 text-xs font-semibold leading-relaxed text-left">
             {language === 'FR' 
-              ? "Naviguez à travers l'onboarding pour débloquer votre dossier d'agent de terrain FDK."
-              : "Complete the steps below to print your regional FDK community volunteer card."}
+              ? "Naviguez à travers l'onboarding pour débloquer votre dossier d'agent de terrain FDFK."
+              : "Complete the steps below to print your regional FDFK community volunteer card."}
           </p>
           <div className="flex gap-2">
             <button
@@ -386,10 +386,10 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ language }) =>
         <div className="lg:col-span-12 xl:col-span-5 bg-white rounded-[32px] p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-5 text-left">
           <div className="space-y-1">
             <h4 className="font-mono text-3xs font-black uppercase tracking-widest text-brand-gold">
-              {language === 'FR' ? "GÉNÉRATEUR DE CARTE DE MEMBRE" : "FDK LEADER ID CARD"}
+              {language === 'FR' ? "GÉNÉRATEUR DE CARTE DE MEMBRE" : "FDFK LEADER ID CARD"}
             </h4>
             <p className="text-4xs text-slate-400 font-semibold uppercase tracking-wider block">
-              {language === 'FR' ? "Aperçu de votre carte de terrain officielle FDK." : "Visual mock-up of your active field agent identifier."}
+              {language === 'FR' ? "Aperçu de votre carte de terrain officielle FDFK." : "Visual mock-up of your active field agent identifier."}
             </p>
           </div>
 
@@ -401,7 +401,7 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ language }) =>
             {/* FDK header stamp */}
             <div className="flex justify-between items-center border-b border-white/10 pb-4">
               <div>
-                <span className="font-display font-black text-white text-sm tracking-widest">FDK</span>
+                <span className="font-display font-black text-white text-sm tracking-widest">FDFK</span>
                 <span className="block text-4xs font-mono text-brand-gold uppercase font-bold tracking-widest mt-1">KASAÏ-CENTRAL</span>
               </div>
               <div className="text-right">
@@ -448,7 +448,7 @@ export const VolunteerPortal: React.FC<VolunteerPortalProps> = ({ language }) =>
               <div>
                 <span className="block text-[6px] text-slate-400 font-mono uppercase tracking-wider">ID CODELINK</span>
                 <p className="text-3xs font-black text-white font-mono mt-1">
-                  FDK-2026-{volunteerIDCode || '81604'}
+                  FDFK-2026-{volunteerIDCode || '81604'}
                 </p>
               </div>
 

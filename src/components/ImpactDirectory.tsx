@@ -104,7 +104,7 @@ export const ImpactDirectory: React.FC<ImpactDirectoryProps> = ({ language }) =>
       <section className="text-center max-w-3xl mx-auto space-y-5">
         <span className="inline-flex items-center gap-2 rounded-full bg-brand-navy/5 px-4 py-1.5 text-3xs font-black text-brand-navy ring-1 ring-brand-gold/20 uppercase tracking-widest font-sans">
           <Target className="h-4 w-4 text-brand-gold animate-pulse" />
-          <span>FDK STRATEGIC HORIZON</span>
+          <span>FDFK STRATEGIC HORIZON</span>
         </span>
         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-gold tracking-tight">
           {t.impact.title}
@@ -122,7 +122,7 @@ export const ImpactDirectory: React.FC<ImpactDirectoryProps> = ({ language }) =>
             {language === 'FR' ? "NOTRE ENGAGEMENT DE DÉVELOPPEMENT" : "OUR DEVELOPMENT CHARTER"}
           </h2>
           <p className="font-display text-base sm:text-lg md:text-xl font-medium text-slate-300 leading-relaxed tracking-tight">
-            {language === 'FR' ? "La FDK est investie dans une approche scientifique et pragmatique du développement du Kasaï-Central, maximisant l'autonomie et les retombées réelles pour les femmes et les jeunes ruraux." : t.impact.axesIntro}
+            {language === 'FR' ? "La FDFK est investie dans une approche scientifique et pragmatique du développement du Kasaï-Central, maximisant l'autonomie et les retombées réelles pour les femmes et les jeunes ruraux." : t.impact.axesIntro}
           </p>
         </div>
       </section>

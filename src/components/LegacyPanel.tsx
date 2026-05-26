@@ -23,7 +23,7 @@ export const LegacyPanel: React.FC<LegacyPanelProps> = ({ language }) => {
       <section className="text-center max-w-3xl mx-auto space-y-5">
         <span className="inline-flex items-center gap-2 rounded-full bg-brand-navy/5 px-4 py-1.5 text-3xs font-black text-brand-navy ring-1 ring-brand-gold/20 uppercase tracking-widest font-sans">
           <Award className="h-3.5 w-3.5 text-brand-gold" />
-          <span>FDK MEMORIAL TRIBUTE</span>
+          <span>FDFK MEMORIAL TRIBUTE</span>
         </span>
         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-gold tracking-tight">
           {t.legacy.title}
@@ -47,7 +47,7 @@ export const LegacyPanel: React.FC<LegacyPanelProps> = ({ language }) => {
               </span>
               <div>
                 <span className="font-mono text-[9px] font-black text-brand-gold uppercase tracking-widest block leading-none">
-                  FDK IDENTITY
+                  FDFK IDENTITY
                 </span>
                 <span className="font-display text-base sm:text-lg font-black text-brand-navy tracking-tight mt-1.5 block">
                   {language === 'FR' ? "Vocations, Territoire & Actions" : "Vocation, Territory & Values"}
@@ -158,7 +158,7 @@ export const LegacyPanel: React.FC<LegacyPanelProps> = ({ language }) => {
                   _Docteur François WA MUSANGANA KATEKESHA
                 </span>
                 <span className="text-4xs text-brand-gold font-mono uppercase tracking-widest font-black mt-1">
-                  1945 - 2022 • EXECUTIVE MEMORIAL TRIBUTE
+                  1947 - 2022 • EXECUTIVE MEMORIAL TRIBUTE
                 </span>
               </div>
             </div>
@@ -173,7 +173,7 @@ export const LegacyPanel: React.FC<LegacyPanelProps> = ({ language }) => {
             
             <ul className="mt-4 space-y-4">
               <li className="flex gap-4 text-xs">
-                <span className="font-mono font-black text-xs text-brand-navy bg-slate-50 h-7 w-12 rounded-lg flex items-center justify-center shrink-0 border border-brand-gold/20">1978</span>
+                <span className="font-mono font-black text-xs text-brand-navy bg-slate-50 h-7 w-12 rounded-lg flex items-center justify-center shrink-0 border border-brand-gold/20">1975</span>
                 <p className="text-slate-600 text-xs mt-0.5 leading-normal">
                   <strong className="text-slate-900 font-bold">{language === 'FR' ? "Doctorat (PhD) de l'Université de Liège" : "PhD from University of Liège"}</strong> {language === 'FR' ? "avec grande distinction." : "graduated with high honors."}
                 </p>

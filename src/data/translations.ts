@@ -8,11 +8,12 @@ export const translations: Record<Language, any> = {
       about: "À Propos",
       legacy: "Héritage Dr François",
       impact: "Axes & Actions",
+      board: "Conseil d'Administration",
       donor: "Pacte Partenaires & Dons",
       volunteer: "Devenir Bénévole",
       contactUs: "Nous contacter",
       address: "Adresse physique de la Fondation",
-      addressValue: "Avenue de la Révolution, Kananga, Kasaï-Central, République Démocratique du Congo",
+      addressValue: "SG: 20 Av du rail, Quartier plateau, commune de Kananga, ville de Kananga, Kasaï-Central - RDC",
       phone: "Téléphone",
       email: "E-mail",
       submit: "Soumettre",
@@ -29,7 +30,7 @@ export const translations: Record<Language, any> = {
       activities: "Nos Activités"
     },
     home: {
-      heroTitle: "Bâtir un avenir équitable et durable au cœur du Kasaï-Central",
+      heroTitle: "Bâtir un avenir équitable et durable au cœur du Kasaï-Central et toutes les provinces de la RDCongo",
       heroSubtitle: "Inspirés par l'excellence académique et scientifique du Dr François Katekesha, nous œuvrons chaque jour pour l'autonomisation des femmes, l'éducation populaire et le développement durable en RDC.",
       aboutTitle: "À propos de la Fondation Docteur François Katekesha",
       aboutIntro: "La Fondation est une organisation à vocation sociale, fondée sur les valeurs de solidarité, mutualité et libre association, et engagée dans l'autonomisation des femmes et des jeunes pour un développement durable.",
@@ -48,9 +49,9 @@ export const translations: Record<Language, any> = {
     },
     legacy: {
       title: "Héritage Scientifique et Humain",
-      subtitle: "Hommage au Dr François WA MUSANGANA KATEKESHA (1945 - 2022)",
+      subtitle: "Hommage au Dr François WA MUSANGANA KATEKESHA (1947 - 2022)",
       bioTitle: "Un Parcours d'Excellence",
-      bioText1: "Le Docteur François WA MUSANGANA KATEKESHA était Originaire du Kasaï-Central. Premier PhD de sa région diplômé de l'Université de Liège en Belgique, il fut une figure de proue et de référence absolue dans le domaine géologique en République Démocratique du Congo de 1978 à 2022.",
+      bioText1: "Le Docteur François WA MUSANGANA KATEKESHA était Originaire du Kasaï-Central. Premier PhD de sa région diplômé de l'Université de Liège en Belgique, il fut une figure de proue et de référence absolue dans le domaine géologique en République Démocratique du Congo de 1975 à 2022.",
       bioText2: "Son expertise scientifique a jeté les bases d'une meilleure compréhension des richesses minéralogiques de la sous-région, tout en prônant continuellement un développement qui profite directement aux communautés locales.",
       extendedAbout: "La Fondation est une organisation à vocation sociale, fondée sur les valeurs de solidarité, mutualité et libre association, et engagée dans l’autonomisation des femmes et des jeunes pour un développement durable.",
       extendedGeology: "Implantée dans la province du Kasaï-Central, elle vise à révéler et valoriser les talents locaux afin de contribuer au développement socio-économique de la région et de la RDC.",
@@ -77,7 +78,7 @@ export const translations: Record<Language, any> = {
           significance: "Encourager des bourses scientifiques d'excellence pour la jeunesse locale."
         }
       ],
-      academicCredits: "PHD Université de Liège, Belgique • Expert en Géologie en RDC 1978 - 2022 • Leader Inspirant pour la jeunesse du Kasaï-Central."
+      academicCredits: "PHD Université de Liège, Belgique • Expert en Géologie en RDC 1975 - 2022 • Leader Inspirant pour la jeunesse du Kasaï-Central."
     },
     impact: {
       title: "Mission & Axes Stratégiques",
@@ -217,11 +218,12 @@ export const translations: Record<Language, any> = {
       about: "About Us",
       legacy: "Dr François's Legacy",
       impact: "Axes & Actions",
+      board: "Board of Directors",
       donor: "Partners & Donors",
       volunteer: "Become a Volunteer",
       contactUs: "Contact Us",
       address: "Physical Address of the Foundation",
-      addressValue: "Revolution Avenue, Kananga, Kasaï-Central, Democratic Republic of Congo",
+      addressValue: "SG: 20 Av du rail, Quartier plateau, commune of Kananga, city of Kananga, Kasai-Central - DRC",
       phone: "Phone",
       email: "Email",
       submit: "Submit",
@@ -238,7 +240,7 @@ export const translations: Record<Language, any> = {
       activities: "Our Activities"
     },
     home: {
-      heroTitle: "Building an Equitable and Sustainable Future in Kasaï-Central",
+      heroTitle: "Building an Equitable and Sustainable Future in Kasaï-Central and All Provinces of the DR Congo",
       heroSubtitle: "Inspired by the academic and scientific excellence of Dr. François Katekesha, we work every day for the empowerment of women, civic education, and sustainable progress in the DRC.",
       aboutTitle: "About the Dr. François Katekesha Foundation",
       aboutIntro: "The Foundation is a social NGO, built on solidarity, mutuality, and free association, committed to empowering women and youth for sustainable geographic development.",
@@ -257,9 +259,9 @@ export const translations: Record<Language, any> = {
     },
     legacy: {
       title: "Scientific & Humanist Legacy",
-      subtitle: "A Tribute to Dr. François WA MUSANGANA KATEKESHA (1945 - 2022)",
+      subtitle: "A Tribute to Dr. François WA MUSANGANA KATEKESHA (1947 - 2022)",
       bioTitle: "A Path of True Brilliance",
-      bioText1: "Dr. François WA MUSANGANA KATEKESHA was a native son of Kasaï-Central. As the region's first PhD graduate from the University of Liège in Belgium, he was the absolute reference in the geological study of the DRC from 1978 to 2022.",
+      bioText1: "Dr. François WA MUSANGANA KATEKESHA was a native son of Kasaï-Central. As the region's first PhD graduate from the University of Liège in Belgium, he was the absolute reference in the geological study of the DRC from 1975 to 2022.",
       bioText2: "His scientific studies mapped out a deep mineralogical clarity for the sub-region, while consistently advocating to turn minerals into standard health, water, and infrastructure assets for the direct benefit of local inhabitants.",
       extendedAbout: "The Foundation is a social NGO based on the values of solidarity, mutuality, and free association, committed to the empowerment of women and youth for sustainable development.",
       extendedGeology: "Located in the province of Kasaï-Central, it aims to uncover and promote local talents to contribute to the socio-economic development of the region and the DRC.",
@@ -274,8 +276,7 @@ export const translations: Record<Language, any> = {
           name: "Gemstone Diamonds",
           description: "Abundant in the river beds of Kananga, standard of structural grit formed under extreme earth pressure.",
           significance: "Promoting ethical chains to build solid schools for miners' children."
-        },
-        {
+         } , {
           name: "Malachite & Copper",
           description: "Stunning green carbonate minerals indicating rich underground copper veins.",
           significance: "Groundwater geological analysis to install clean rural wells."
@@ -286,7 +287,7 @@ export const translations: Record<Language, any> = {
           significance: "Sponsoring university excellence scholarships in geological sciences."
         }
       ],
-      academicCredits: "PhD from University of Liège, Belgium • Main DRC Geology Advisor 1978 - 2022 • Lifelong mentor to youth."
+      academicCredits: "PhD from University of Liège, Belgium • Main DRC Geology Advisor 1975 - 2022 • Lifelong mentor to youth."
     },
     impact: {
       title: "Strategic Program Directory",

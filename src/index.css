@@ -7,11 +7,11 @@
   --font-sans: "Inter", "DM Sans", "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Clash Display", "General Sans", "Satoshi", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --color-brand-navy: #123524;
-  --color-brand-navy-light: #15803D;
-  --color-brand-navy-muted: #166534;
-  --color-brand-gold: #F97316;
-  --color-brand-gold-light: #FFEDD5;
+  --color-brand-navy: #136947; /* Slightly lighter, organic deep forest green matching the logo's premium backdrop */
+  --color-brand-navy-light: #16A34A; /* Brighter, more vibrant green for active and interactive content */
+  --color-brand-navy-muted: #187D54; /* Brighter leaf-green representation */
+  --color-brand-gold: #D29A22; /* True rich yellow-gold extracted directly from the FDK logo emblem */
+  --color-brand-gold-light: #FDF9E2; /* Delicate champagne-gold background wash */
   --color-brand-grey: #64748B;
   --color-brand-grey-light: #F1F5F9;
   --color-brand-grey-bg: #F8FAFC;
