@@ -12,7 +12,12 @@ import {
   Eye,
   Heart,
   Sparkles,
-  Info
+  Info,
+  Video,
+  Upload,
+  Settings,
+  VolumeX,
+  Volume2
 } from 'lucide-react';
 
 interface GalleryItem {
@@ -147,6 +152,19 @@ export const GalleryView: React.FC<GalleryViewProps> = ({ language }) => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'women' | 'education' | 'social' | 'community'>('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
+  const DEFAULT_VIDEO = 'https://assets.mixkit.co/videos/preview/mixkit-african-landscape-with-trees-during-sunset-31518-large.mp4';
+  const [videoUrl, setVideoUrl] = useState(DEFAULT_VIDEO);
+  const [isMuted, setIsMuted] = useState(true);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+
+  const handleLocalFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setVideoUrl(url);
+    }
+  };
+
   // Filter items
   const filteredItems = selectedCategory === 'all' 
     ? GALLERY_ITEMS 
@@ -209,6 +227,143 @@ export const GalleryView: React.FC<GalleryViewProps> = ({ language }) => {
               : "Discover the concrete field action of the Foundation in Kananga, Kasai-Central province, driven by the vision of a brighter future."
             }
           </p>
+        </div>
+      </div>
+
+      {/* Featured Launch Video Section */}
+      <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-8 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div className="space-y-1">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-extrabold tracking-wider text-[#125838] uppercase">
+              <Video className="h-3 w-3" />
+              <span>{language === 'FR' ? "Lancement Officiel" : "Official Launch"}</span>
+            </span>
+            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-navy">
+              {language === 'FR' ? "Vidéo de Présentation de la Fondation" : "Foundation Presentation Video"}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 font-sans">
+              {language === 'FR' 
+                ? "Le lancement de nos activités à Kananga et notre vision pour l'autonomisation durable."
+                : "The launch of our activities in Kananga and our vision for sustainable empowerment."
+              }
+            </p>
+          </div>
+          
+          {/* Controls to change URL or select local file */}
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href="https://screenapp.io/app/v/IpDL0ndRzu"
+              target="_blank"
+              rel="noopener"
+              className="bg-brand-navy hover:bg-brand-navy-light text-white border border-brand-gold/25 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all flex items-center gap-1.5 cursor-pointer"
+            >
+              <Video className="h-3.5 w-3.5 text-brand-gold" />
+              <span>{language === 'FR' ? "Lien Direct de la Vidéo" : "Direct Video Link"}</span>
+            </a>
+            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all flex items-center gap-1.5">
+              <Upload className="h-3.5 w-3.5" />
+              <span>{language === 'FR' ? "Ouvrir un fichier local" : "Open Local File"}</span>
+              <input 
+                type="file" 
+                accept="video/*" 
+                onChange={handleLocalFileChange} 
+                className="hidden" 
+              />
+            </label>
+            <button
+              onClick={() => setShowUrlInput(!showUrlInput)}
+              className="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all flex items-center gap-1.5 cursor-pointer"
+            >
+              <Settings className="h-3.5 w-3.5" />
+              <span>{language === 'FR' ? "Lien URL personnalisé" : "Custom URL Link"}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Dynamic URL Input foldout */}
+        {showUrlInput && (
+          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+            <label className="block text-xs font-bold text-slate-550 uppercase font-mono">
+              {language === 'FR' ? "Lien direct du fichier vidéo (.mp4, .webm, etc.) :" : "Direct Video File URL (.mp4, .webm, etc.):"}
+            </label>
+            <div className="flex gap-2">
+              <input 
+                type="text"
+                value={videoUrl}
+                onChange={(e) => setVideoUrl(e.target.value)}
+                placeholder="https://example.com/video.mp4"
+                className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-brand-gold focus:outline-none"
+              />
+              <button 
+                onClick={() => {
+                  setVideoUrl(DEFAULT_VIDEO);
+                  setShowUrlInput(false);
+                }}
+                className="bg-slate-200 hover:bg-slate-300 px-3 py-2 rounded-xl text-xs font-bold transition-all text-slate-705 cursor-pointer"
+              >
+                {language === 'FR' ? "Réinitialiser" : "Reset"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Video Frame */}
+        <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-950 shadow-inner group/video ring-1 ring-slate-200/50">
+          {videoUrl === DEFAULT_VIDEO ? (
+            <iframe
+              src="https://screenapp.io/app/v/IpDL0ndRzu"
+              className="absolute inset-0 w-full h-full border-0"
+              allow="autoplay; encrypted-media; picture-in-picture; web-share; fullscreen"
+              allowFullScreen
+              title="FDFK Presentation Video"
+            />
+          ) : (
+            <video
+              src={videoUrl}
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+              loop
+              muted={isMuted}
+              playsInline
+            />
+          )}
+          
+          {/* Floating watermarked badge indicating official presentation */}
+          <div className="absolute top-4 left-4 bg-black/60 px-3.5 py-1.5 rounded-xl border border-white/10 flex items-center gap-2 backdrop-blur-md pointer-events-none z-10">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-[10px] sm:text-xs font-bold font-sans uppercase text-[#FFFCEB] tracking-widest">
+              {language === 'FR' ? "FDFK MÉDIA INTERACTIF" : "FDFK INTERACTIVE MEDIA"}
+            </span>
+          </div>
+
+          {videoUrl !== DEFAULT_VIDEO && (
+            /* Quick toggle sound control */
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className="absolute bottom-4 right-4 h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-black/60 border border-white/10 text-white flex items-center justify-center hover:bg-black/80 transition-all backdrop-blur-md shadow-lg cursor-pointer z-10"
+            >
+              {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5 text-brand-gold" />}
+            </button>
+          )}
+        </div>
+        
+        {/* Caption explaining the video content */}
+        <div className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-150 flex items-start gap-3.5">
+          <div className="h-10 w-10 rounded-xl bg-brand-gold/10 text-[#D29A22] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+            <Sparkles className="h-5 w-5 animate-pulse" />
+          </div>
+          <div className="space-y-1">
+            <span className="font-display font-black text-sm text-brand-navy block">
+              {language === 'FR' ? "ENSEMBLE NOUS POUVONS !" : "TOGETHER WE CAN!"}
+            </span>
+            <p className="text-xs sm:text-xs text-slate-600 leading-relaxed font-sans">
+              {language === 'FR'
+                ? "Cette vidéo retrace le lancement officiel de nos activités à Kananga ainsi que nos programmes d'action (Assistance Sociale, Éducation et Santé, Autonomisation des Femmes et de la Jeunesse). Elle montre l'esprit d'unité et notre engagement continu pour un avenir plus juste et prospère."
+                : "This video illustrates the official launch of our activities in Kananga along with our action pillars (Social Support, Education & Health, and Women & Youth Empowerment). It shows the spirit of unity and our continuous drive toward a fairer and more prosperous future."
+              }
+            </p>
+          </div>
         </div>
       </div>
 

@@ -14,37 +14,41 @@ import {
   Mail, 
   Phone, 
   Facebook, 
-  Instagram, 
   Award,
   Sparkles,
   Menu,
   X 
 } from 'lucide-react';
 
-function TypewriterSlogan() {
-  const text = "Ensemble nous pouvons";
+function TypewriterSlogan({ language }: { language: Language }) {
+  const text = language === 'FR' ? "Ensemble nous pouvons !" : "Together we can !";
   const [displayText, setDisplayText] = useState('');
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setDisplayText('');
+    setIndex(0);
+  }, [language, text]);
 
   useEffect(() => {
     if (index < text.length) {
       const timeout = setTimeout(() => {
         setDisplayText(prev => prev + text[index]);
         setIndex(prev => prev + 1);
-      }, 40); // very fast typing speed
+      }, 55); // fast typing speed
       return () => clearTimeout(timeout);
     } else {
       // Pause then restart typing
       const timeout = setTimeout(() => {
         setDisplayText('');
         setIndex(0);
-      }, 4000); // Hold for 4 seconds
+      }, 4500); // Hold for 4.5 seconds
       return () => clearTimeout(timeout);
     }
   }, [index, text]);
 
   return (
-    <span className="font-sans text-white font-black tracking-widest border-r-2 border-white/80 animate-pulse pr-1 whitespace-nowrap text-[10px] sm:text-xs uppercase">
+    <span className="font-sans text-white font-black tracking-widest border-r-2 border-[#C5A25D] animate-pulse pr-1 whitespace-nowrap text-[11px] sm:text-xs uppercase">
       {displayText}
     </span>
   );
@@ -110,8 +114,9 @@ export default function App() {
             </span>
           </div>
           <div className="flex items-center justify-center md:justify-end gap-3 text-[10px] sm:text-xs">
-            <div className="inline-flex items-center gap-2 bg-[#125838] px-3 py-1 rounded-md border border-brand-gold/30 shadow-inner text-white">
-              <TypewriterSlogan />
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#125838] to-[#0f442c] px-3.5 py-1.5 rounded-lg border border-brand-gold/50 shadow-md text-white">
+              <Sparkles className="h-3 w-3 text-brand-gold shrink-0 animate-pulse" />
+              <TypewriterSlogan language={language} />
             </div>
             <div className="hidden sm:flex items-center gap-1.5 text-brand-gold font-mono text-[9px] font-black uppercase tracking-widest pl-2 border-l border-white/10">
               <span>KANANGA • RDC</span>
@@ -145,19 +150,24 @@ export default function App() {
           </div>
 
           {/* Nav Links - Desktop with premium hover indicators - Pure White with orange and green */}
-          <nav className="hidden lg:flex items-center gap-1 bg-slate-50/90 p-1 rounded-2xl border border-slate-200/50 shadow-inner">
+          <nav className="hidden lg:flex items-center gap-1.5 bg-slate-50/90 p-1.5 rounded-2xl border border-slate-200/50 shadow-inner">
             {navTabs.map(tab => (
               <button
                 key={tab.id}
                 id={`nav-${tab.id}`}
                 onClick={() => handleNavigate(tab.id)}
-                className={`rounded-xl px-3 py-1.5 text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all duration-300 relative overflow-hidden cursor-pointer ${
+                className={`rounded-xl px-3.5 py-2 text-[11px] xl:text-xs font-black uppercase tracking-widest transition-all duration-300 relative overflow-hidden cursor-pointer flex items-center gap-1.5 ${
                   activeTab === tab.id
-                    ? 'bg-brand-gold/15 text-brand-gold shadow-xs border border-brand-gold/25 scale-[1.02]'
-                    : 'text-slate-600 hover:text-brand-gold hover:bg-slate-100/65'
+                    ? 'bg-brand-gold/20 text-brand-gold shadow-sm border border-brand-gold/45 scale-[1.02]'
+                    : tab.id === 'gallery'
+                      ? 'bg-emerald-50/80 border border-emerald-500/30 text-emerald-700 hover:bg-emerald-100/80 shadow-3xs'
+                      : 'text-slate-600 hover:text-brand-gold hover:bg-slate-100/65'
                 }`}
               >
                 <span>{tab.label}</span>
+                {tab.id === 'gallery' && (
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                )}
                 {activeTab === tab.id && (
                   <span className="absolute bottom-0 left-1/4 right-1/4 h-0.5 bg-brand-gold rounded-full animate-pulse"></span>
                 )}
@@ -205,13 +215,21 @@ export default function App() {
             <button
               key={tab.id}
               onClick={() => handleNavigate(tab.id)}
-              className={`w-full text-left rounded-xl px-4 py-2 text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer ${
+              className={`w-full text-left rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-between ${
                 activeTab === tab.id
                   ? 'bg-brand-gold/15 text-brand-gold border border-brand-gold/20 shadow-3xs'
-                  : 'text-slate-600 hover:bg-slate-50'
+                  : tab.id === 'gallery'
+                    ? 'bg-emerald-50/70 border border-emerald-500/20 text-emerald-800'
+                    : 'text-slate-600 hover:bg-slate-50'
               }`}
             >
-              {tab.label}
+              <span>{tab.label}</span>
+              {tab.id === 'gallery' && (
+                <span className="inline-flex items-center gap-1 bg-emerald-100 text-[#125838] px-2 py-0.5 rounded-md text-[8.5px] font-black uppercase tracking-widest ring-1 ring-emerald-600/10 shrink-0">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                  <span>{language === 'FR' ? "Vidéo" : "Video"}</span>
+                </span>
+              )}
             </button>
           ))}
           <button
@@ -285,13 +303,20 @@ export default function App() {
                 </div>
               </li>
 
-              <li className="flex gap-3 items-center">
-                <div className="h-8 w-8 rounded-lg bg-white flex items-center justify-center shrink-0 border border-slate-200">
+              <li className="flex gap-3 items-start">
+                <div className="h-8 w-8 rounded-lg bg-white flex items-center justify-center shrink-0 border border-slate-200 mt-1">
                   <Phone className="h-4 w-4 text-brand-gold" />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 font-sans block uppercase font-semibold tracking-wider">{t.common.phone}</span>
-                  <p className="text-sm font-bold text-slate-700">+243 824 555 901</p>
+                  <span className="text-[10px] text-slate-400 font-sans block uppercase font-semibold tracking-wider mb-1">{t.common.phone}</span>
+                  <div className="space-y-1">
+                    <a href="tel:+243992931101" className="text-sm font-bold text-slate-700 hover:text-brand-gold transition-colors block">
+                      Mr Serge Mputu Katekesha : <span className="font-mono text-xs font-medium text-slate-500 block sm:inline sm:ml-1">+243 992 931 101</span>
+                    </a>
+                    <a href="tel:+243844403007" className="text-sm font-bold text-slate-700 hover:text-brand-gold transition-colors block">
+                      Md Esther Umba Katekesha : <span className="font-mono text-xs font-medium text-slate-500 block sm:inline sm:ml-1">+243 844 403 007</span>
+                    </a>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -310,9 +335,6 @@ export default function App() {
               <a href="https://www.tiktok.com/@fondationdocteurfra?_r=1&_t=ZS-96dLdllomlp" target="_blank" rel="noreferrer" title="TikTok - FDFK" className="h-9 w-9 rounded-xl bg-white hover:bg-slate-900/10 text-slate-400 hover:text-black hover:border-black/40 flex items-center justify-center transition-all border border-slate-200/60 shadow-xs">
                 <TiktokIcon className="h-4.5 w-4.5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" title="Instagram - FDFK" className="h-9 w-9 rounded-xl bg-white hover:bg-pink-50 text-slate-400 hover:text-pink-600 hover:border-pink-300 flex items-center justify-center transition-all border border-slate-200/60 shadow-xs">
-                <Instagram className="h-4.5 w-4.5" />
-              </a>
             </div>
 
             <p className="text-xs text-slate-400 font-sans leading-relaxed pt-2">
@@ -326,7 +348,7 @@ export default function App() {
 
       {/* Sub-footer banner */}
       <footer className="bg-brand-navy text-slate-400 text-center py-6 text-xs font-sans tracking-wide border-t border-slate-900 select-none font-light">
-        <span>Fondation Dr François Kabamba • "{t.common.thanks}" • Designed with Premium Deep Navy & Soft Gold Accents</span>
+        <span>Fondation Dr François Katekesha • "{t.common.thanks}"</span>
       </footer>
 
     </div>

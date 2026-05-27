@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Language, ActiveTab } from '../types';
 import { translations } from '../data/translations';
+import { motion } from 'motion/react';
 import { 
   Users, 
   MapPin, 
@@ -79,6 +80,25 @@ interface HomeOverviewProps {
 export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate }) => {
   const t = translations[language];
 
+  // Split long hero title elegantly for perfect typography and neat mobile responsive layout
+  const fullTitle = t.home.heroTitle;
+  let part1 = fullTitle;
+  let part2 = "";
+
+  if (language === 'FR') {
+    const idx = fullTitle.indexOf(" dans ");
+    if (idx !== -1) {
+      part1 = fullTitle.slice(0, idx);
+      part2 = fullTitle.slice(idx);
+    }
+  } else {
+    const idx = fullTitle.indexOf(" in ");
+    if (idx !== -1) {
+      part1 = fullTitle.slice(0, idx);
+      part2 = fullTitle.slice(idx);
+    }
+  }
+
   // Key features matching the slide axes
   const fastFeatures = [
     {
@@ -113,20 +133,59 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
         <div className="absolute -bottom-20 -left-20 h-96 w-96 rounded-full bg-slate-500/5 blur-4xl transition-all duration-700 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-4xl space-y-7 text-left lg:text-center lg:mx-auto lg:flex lg:flex-col lg:items-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-slate-900/65 px-4.5 py-1.5 text-3xs font-black tracking-widest text-[#C5A25D] ring-1 ring-white/10 backdrop-blur-md uppercase">
-            <Sparkles className="h-3.5 w-3.5 animate-pulse text-brand-gold" />
-            <span>ENSEMBLE NOUS POUVONS</span>
-          </span>
 
-          <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-white">
-            {t.home.heroTitle}
-          </h1>
+          {part2 ? (
+            <h1 className="font-display tracking-tight leading-[1.12] text-white flex flex-col gap-3.5 sm:gap-4.5 lg:items-center">
+              {/* Primary action statement - Bold, gradient, highly polished */}
+              <motion.span 
+                initial={{ x: 60, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-5.5xl xl:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-slate-200 block max-w-4xl leading-tight"
+              >
+                {part1}
+              </motion.span>
+              {/* Scope statement - Lighter, clean, gold branding accent highlighting territories */}
+              <motion.span 
+                initial={{ x: 80, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
+                className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-slate-300 block leading-relaxed max-w-4xl lg:mx-auto"
+              >
+                {part2.trim().startsWith("dans") ? "dans " : "in "}
+                <span className="text-[#C5A25D] font-black underline decoration-[#C5A25D]/35 decoration-2 underline-offset-4">
+                  {part2.trim().startsWith("dans") 
+                    ? part2.trim().slice(5) 
+                    : part2.trim().slice(3)}
+                </span>
+              </motion.span>
+            </h1>
+          ) : (
+            <motion.h1 
+              initial={{ x: 60, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.12] text-white"
+            >
+              {fullTitle}
+            </motion.h1>
+          )}
 
-          <p className="font-sans text-base leading-relaxed text-slate-300 sm:text-lg lg:text-xl font-light max-w-3xl lg:mx-auto">
+          <motion.p 
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
+            className="font-sans text-base leading-relaxed text-slate-300 sm:text-lg lg:text-xl font-light max-w-3xl lg:mx-auto"
+          >
             {t.home.heroSubtitle}
-          </p>
+          </motion.p>
 
-          <div className="flex flex-wrap gap-4 pt-4 lg:justify-center">
+          <motion.div 
+            initial={{ x: 120, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.38 }}
+            className="flex flex-wrap gap-4 pt-4 lg:justify-center"
+          >
             <button
               id="hero-cta-volunteer"
               onClick={() => onNavigate('volunteer')}
@@ -143,7 +202,7 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
             >
               {t.home.ctaPartnerButton}
             </button>
-          </div>
+          </motion.div>
         </div>
       </section>
 

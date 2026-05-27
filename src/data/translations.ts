@@ -30,7 +30,7 @@ export const translations: Record<Language, any> = {
       activities: "Nos Activités"
     },
     home: {
-      heroTitle: "Bâtir un avenir équitable et durable au cœur du Kasaï-Central et toutes les provinces de la RDCongo",
+      heroTitle: "Bâtir un avenir meilleur et opportunités équitables dans la province du Kasaï-Central et sur l'étendue de la République Démocratique du Congo",
       heroSubtitle: "Inspirés par l'excellence académique et scientifique du Dr François Katekesha, nous œuvrons chaque jour pour l'autonomisation des femmes, l'éducation populaire et le développement durable en RDC.",
       aboutTitle: "À propos de la Fondation Docteur François Katekesha",
       aboutIntro: "La Fondation est une organisation à vocation sociale, fondée sur les valeurs de solidarité, mutualité et libre association, et engagée dans l'autonomisation des femmes et des jeunes pour un développement durable.",
@@ -240,7 +240,7 @@ export const translations: Record<Language, any> = {
       activities: "Our Activities"
     },
     home: {
-      heroTitle: "Building an Equitable and Sustainable Future in Kasaï-Central and All Provinces of the DR Congo",
+      heroTitle: "Building a Better and More Equitable Future in the Kasaï-Central Province and Across the Democratic Republic of the Congo",
       heroSubtitle: "Inspired by the academic and scientific excellence of Dr. François Katekesha, we work every day for the empowerment of women, civic education, and sustainable progress in the DRC.",
       aboutTitle: "About the Dr. François Katekesha Foundation",
       aboutIntro: "The Foundation is a social NGO, built on solidarity, mutuality, and free association, committed to empowering women and youth for sustainable geographic development.",
