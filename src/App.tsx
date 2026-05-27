@@ -224,12 +224,6 @@ export default function App() {
               }`}
             >
               <span>{tab.label}</span>
-              {tab.id === 'gallery' && (
-                <span className="inline-flex items-center gap-1 bg-emerald-100 text-[#125838] px-2 py-0.5 rounded-md text-[8.5px] font-black uppercase tracking-widest ring-1 ring-emerald-600/10 shrink-0">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
-                  <span>{language === 'FR' ? "Vidéo" : "Video"}</span>
-                </span>
-              )}
             </button>
           ))}
           <button

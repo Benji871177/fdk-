@@ -152,17 +152,59 @@ export const GalleryView: React.FC<GalleryViewProps> = ({ language }) => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'women' | 'education' | 'social' | 'community'>('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const DEFAULT_VIDEO = 'https://assets.mixkit.co/videos/preview/mixkit-african-landscape-with-trees-during-sunset-31518-large.mp4';
-  const [videoUrl, setVideoUrl] = useState(DEFAULT_VIDEO);
-  const [isMuted, setIsMuted] = useState(true);
-  const [showUrlInput, setShowUrlInput] = useState(false);
+  // State to track flip status of gallery items using their unique IDs
+  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
 
-  const handleLocalFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setVideoUrl(url);
+  // Auto-flip staggered effect as items enter viewport
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const itemId = entry.target.getAttribute('data-item-id');
+              const indexStr = entry.target.getAttribute('data-item-index');
+              if (itemId && indexStr) {
+                const idx = parseInt(indexStr, 10);
+                setTimeout(() => {
+                  setFlipped(prev => ({
+                    ...prev,
+                    [itemId]: true // Auto-flip to show picture
+                  }));
+                }, 300 + (idx % 4) * 150); // Stagger rotation
+                
+                observer.unobserve(entry.target);
+              }
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      const elements = document.querySelectorAll('.gallery-flip-card-observed');
+      elements.forEach((el) => observer.observe(el));
+
+      return () => {
+        elements.forEach((el) => observer.unobserve(el));
+      };
+    } else {
+      // Fallback: immediate staggered flip
+      GALLERY_ITEMS.forEach((item, index) => {
+        setTimeout(() => {
+          setFlipped(prev => ({
+            ...prev,
+            [item.id]: true
+          }));
+        }, 1000 + index * 150);
+      });
     }
+  }, [selectedCategory]);
+
+  const toggleFlip = (itemId: string) => {
+    setFlipped(prev => ({
+      ...prev,
+      [itemId]: !prev[itemId]
+    }));
   };
 
   // Filter items
@@ -230,142 +272,7 @@ export const GalleryView: React.FC<GalleryViewProps> = ({ language }) => {
         </div>
       </div>
 
-      {/* Featured Launch Video Section */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-8 shadow-sm space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
-          <div className="space-y-1">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-extrabold tracking-wider text-[#125838] uppercase">
-              <Video className="h-3 w-3" />
-              <span>{language === 'FR' ? "Lancement Officiel" : "Official Launch"}</span>
-            </span>
-            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-navy">
-              {language === 'FR' ? "Vidéo de Présentation de la Fondation" : "Foundation Presentation Video"}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-500 font-sans">
-              {language === 'FR' 
-                ? "Le lancement de nos activités à Kananga et notre vision pour l'autonomisation durable."
-                : "The launch of our activities in Kananga and our vision for sustainable empowerment."
-              }
-            </p>
-          </div>
-          
-          {/* Controls to change URL or select local file */}
-          <div className="flex flex-wrap items-center gap-2">
-            <a
-              href="https://screenapp.io/app/v/IpDL0ndRzu"
-              target="_blank"
-              rel="noopener"
-              className="bg-brand-navy hover:bg-brand-navy-light text-white border border-brand-gold/25 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all flex items-center gap-1.5 cursor-pointer"
-            >
-              <Video className="h-3.5 w-3.5 text-brand-gold" />
-              <span>{language === 'FR' ? "Lien Direct de la Vidéo" : "Direct Video Link"}</span>
-            </a>
-            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all flex items-center gap-1.5">
-              <Upload className="h-3.5 w-3.5" />
-              <span>{language === 'FR' ? "Ouvrir un fichier local" : "Open Local File"}</span>
-              <input 
-                type="file" 
-                accept="video/*" 
-                onChange={handleLocalFileChange} 
-                className="hidden" 
-              />
-            </label>
-            <button
-              onClick={() => setShowUrlInput(!showUrlInput)}
-              className="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all flex items-center gap-1.5 cursor-pointer"
-            >
-              <Settings className="h-3.5 w-3.5" />
-              <span>{language === 'FR' ? "Lien URL personnalisé" : "Custom URL Link"}</span>
-            </button>
-          </div>
-        </div>
 
-        {/* Dynamic URL Input foldout */}
-        {showUrlInput && (
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-            <label className="block text-xs font-bold text-slate-550 uppercase font-mono">
-              {language === 'FR' ? "Lien direct du fichier vidéo (.mp4, .webm, etc.) :" : "Direct Video File URL (.mp4, .webm, etc.):"}
-            </label>
-            <div className="flex gap-2">
-              <input 
-                type="text"
-                value={videoUrl}
-                onChange={(e) => setVideoUrl(e.target.value)}
-                placeholder="https://example.com/video.mp4"
-                className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs focus:ring-1 focus:ring-brand-gold focus:outline-none"
-              />
-              <button 
-                onClick={() => {
-                  setVideoUrl(DEFAULT_VIDEO);
-                  setShowUrlInput(false);
-                }}
-                className="bg-slate-200 hover:bg-slate-300 px-3 py-2 rounded-xl text-xs font-bold transition-all text-slate-705 cursor-pointer"
-              >
-                {language === 'FR' ? "Réinitialiser" : "Reset"}
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Video Frame */}
-        <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-950 shadow-inner group/video ring-1 ring-slate-200/50">
-          {videoUrl === DEFAULT_VIDEO ? (
-            <iframe
-              src="https://screenapp.io/app/v/IpDL0ndRzu"
-              className="absolute inset-0 w-full h-full border-0"
-              allow="autoplay; encrypted-media; picture-in-picture; web-share; fullscreen"
-              allowFullScreen
-              title="FDFK Presentation Video"
-            />
-          ) : (
-            <video
-              src={videoUrl}
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
-              loop
-              muted={isMuted}
-              playsInline
-            />
-          )}
-          
-          {/* Floating watermarked badge indicating official presentation */}
-          <div className="absolute top-4 left-4 bg-black/60 px-3.5 py-1.5 rounded-xl border border-white/10 flex items-center gap-2 backdrop-blur-md pointer-events-none z-10">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-[10px] sm:text-xs font-bold font-sans uppercase text-[#FFFCEB] tracking-widest">
-              {language === 'FR' ? "FDFK MÉDIA INTERACTIF" : "FDFK INTERACTIVE MEDIA"}
-            </span>
-          </div>
-
-          {videoUrl !== DEFAULT_VIDEO && (
-            /* Quick toggle sound control */
-            <button
-              onClick={() => setIsMuted(!isMuted)}
-              className="absolute bottom-4 right-4 h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-black/60 border border-white/10 text-white flex items-center justify-center hover:bg-black/80 transition-all backdrop-blur-md shadow-lg cursor-pointer z-10"
-            >
-              {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5 text-brand-gold" />}
-            </button>
-          )}
-        </div>
-        
-        {/* Caption explaining the video content */}
-        <div className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-150 flex items-start gap-3.5">
-          <div className="h-10 w-10 rounded-xl bg-brand-gold/10 text-[#D29A22] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-            <Sparkles className="h-5 w-5 animate-pulse" />
-          </div>
-          <div className="space-y-1">
-            <span className="font-display font-black text-sm text-brand-navy block">
-              {language === 'FR' ? "ENSEMBLE NOUS POUVONS !" : "TOGETHER WE CAN!"}
-            </span>
-            <p className="text-xs sm:text-xs text-slate-600 leading-relaxed font-sans">
-              {language === 'FR'
-                ? "Cette vidéo retrace le lancement officiel de nos activités à Kananga ainsi que nos programmes d'action (Assistance Sociale, Éducation et Santé, Autonomisation des Femmes et de la Jeunesse). Elle montre l'esprit d'unité et notre engagement continu pour un avenir plus juste et prospère."
-                : "This video illustrates the official launch of our activities in Kananga along with our action pillars (Social Support, Education & Health, and Women & Youth Empowerment). It shows the spirit of unity and our continuous drive toward a fairer and more prosperous future."
-              }
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* Filter Tabs */}
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 py-2 border-b border-slate-200/60">
@@ -396,64 +303,131 @@ export const GalleryView: React.FC<GalleryViewProps> = ({ language }) => {
         ))}
       </div>
 
-      {/* Visual Image Grid */}
+      {/* Custom Styles for Gallery 3D Flip Animations */}
+      <style>{`
+        .gallery-flip-card-container {
+          perspective: 1400px;
+        }
+        .gallery-flip-card-inner {
+          transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+          transform-style: preserve-3d;
+        }
+        .gallery-flip-card-flipped {
+          transform: rotateY(180deg);
+        }
+        .gallery-flip-card-front, .gallery-flip-card-back {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .gallery-flip-card-back {
+          transform: rotateY(180deg);
+        }
+      `}</style>
+
+      {/* Visual Image Grid with scroll-adaptive 3D flip card dynamics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <AnimatePresence mode="popLayout">
-          {filteredItems.map((item, idx) => (
-            <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.35 }}
-              key={item.id}
-              onClick={() => setLightboxIndex(idx)}
-              className="group relative bg-white rounded-2xl border border-slate-200/80 p-3 shadow-sm hover:shadow-xl hover:border-brand-gold/30 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between"
-            >
-              {/* Image Frame */}
-              <div className="relative aspect-4/3 rounded-xl overflow-hidden bg-slate-100">
-                <img 
-                  src={item.src} 
-                  alt={item.title[language]} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" 
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                />
-                
-                {/* Visual Glassmorphism hover overlay */}
-                <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-3xs" />
-                
-                {/* Tag on image */}
-                <span className="absolute top-2.5 left-2.5 inline-flex items-center gap-1 text-[9px] font-extrabold tracking-wider bg-slate-900/80 text-brand-gold px-2.5 py-1 rounded-full backdrop-blur-sm uppercase">
-                  <Tag className="h-2.5 w-2.5" />
-                  <span>{getCategoryLabel(item.category)}</span>
-                </span>
+          {filteredItems.map((item, idx) => {
+            const isFlipped = flipped[item.id] || false;
 
-                {/* Corner quick view icon */}
-                <span className="absolute bottom-3 right-3 h-8 w-8 rounded-full bg-white/95 text-brand-navy flex items-center justify-center shadow-md transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                  <Eye className="h-4 w-4" />
-                </span>
-              </div>
+            return (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35 }}
+                key={item.id}
+                onClick={() => toggleFlip(item.id)}
+                className="gallery-flip-card-container w-full h-[330px] cursor-pointer group select-none gallery-flip-card-observed"
+                data-item-id={item.id}
+                data-item-index={idx}
+              >
+                <div className={`gallery-flip-card-inner relative w-full h-full ${isFlipped ? 'gallery-flip-card-flipped' : ''}`}>
+                  
+                  {/* FRONT FACE: Writeup Focus Card (Pure elegant white/emerald detail aspect) */}
+                  <div className="gallery-flip-card-front rounded-2xl bg-white border border-slate-200/85 hover:border-brand-gold/45 p-5 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#C5A25D_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                    
+                    <div className="flex justify-between items-start relative z-10 w-full">
+                      <span className="inline-flex items-center gap-1 text-[8px] font-extrabold tracking-widest bg-[#125838]/8 text-[#125838] px-2 py-1 rounded-md uppercase">
+                        <Tag className="h-2 w-2 text-brand-gold" />
+                        <span>{getCategoryLabel(item.category)}</span>
+                      </span>
+                      <span className="text-[9px] text-slate-400 font-mono font-bold flex items-center gap-0.5">
+                        <Calendar className="h-2.5 w-2.5 text-slate-400" />
+                        {item.date}
+                      </span>
+                    </div>
 
-              {/* Title & Date Details inside the Grid item card */}
-              <div className="pt-4 px-1 space-y-1.5 flex-1 flex flex-col justify-between">
-                <h3 className="font-display font-extrabold text-sm text-brand-navy group-hover:text-brand-navy-light transition-colors line-clamp-1">
-                  {item.title[language]}
-                </h3>
-                
-                <div className="flex items-center justify-between text-[10px] text-slate-500 font-mono">
-                  <span className="flex items-center gap-1 font-bold">
-                    <Calendar className="h-3 w-3 text-[#D29A22]" />
-                    <span>{item.date}</span>
-                  </span>
-                  <span className="text-[#125838] font-bold tracking-wider hover:underline flex items-center gap-0.5">
-                    {language === 'FR' ? "Agrandir" : "Expand"}
-                    <Expand className="h-2.5 w-2.5" />
-                  </span>
+                    <div className="space-y-2 py-4 relative z-10 flex-1 flex flex-col justify-center text-left">
+                      <h3 className="font-display font-black text-brand-navy text-sm leading-snug tracking-tight">
+                        {item.title[language]}
+                      </h3>
+                      <p className="text-[11px] text-slate-600 line-clamp-3 leading-relaxed font-sans font-medium">
+                        {item.description[language]}
+                      </p>
+                    </div>
+
+                    <div className="border-t border-slate-100 pt-2.5 flex items-center justify-between text-[8px] text-slate-500 relative z-10">
+                      <span className="font-mono tracking-wider uppercase font-extrabold">
+                        {language === 'FR' ? "CLIQUEZ POUR VOIR LA PHOTO" : "CLICK TO VIEW PHOTO"}
+                      </span>
+                      <span className="text-brand-gold bg-brand-gold/8 px-2 py-0.5 rounded-full border border-brand-gold/15 font-mono text-[8px] font-black uppercase animate-pulse">
+                        FLIP
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* BACK FACE: Portrait Photo focus card */}
+                  <div className="gallery-flip-card-back rounded-2xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md hover:shadow-lg flex flex-col justify-end">
+                    <img 
+                      src={item.src} 
+                      alt={item.title[language]} 
+                      className="absolute inset-0 w-full h-full object-cover" 
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-transparent"></div>
+                    
+                    {/* Zoom control button */}
+                    <div className="absolute top-3 right-3 z-20">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation(); // Avoid turning card back on click zoom
+                          setLightboxIndex(idx);
+                        }}
+                        className="bg-slate-950/80 hover:bg-slate-950 text-white p-2 rounded-xl border border-brand-gold/35 backdrop-blur-md transition-all scale-90 hover:scale-100 flex items-center justify-center cursor-pointer"
+                        title={language === 'FR' ? "Agrandir" : "Zoom"}
+                      >
+                        <Expand className="h-3 w-3 text-brand-gold" />
+                      </button>
+                    </div>
+
+                    {/* Back details list overlay block */}
+                    <div className="relative z-10 p-4 space-y-1 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent pt-8 text-left">
+                      <span className="text-[8px] font-mono font-bold text-brand-gold uppercase tracking-widest block">
+                        {getCategoryLabel(item.category)}
+                      </span>
+                      <h4 className="font-display text-xs font-black text-white tracking-tight line-clamp-1">
+                        {item.title[language]}
+                      </h4>
+                      <div className="flex items-center justify-between text-[8px] text-slate-400 font-mono pt-0.5">
+                        <span>{item.date} • Kananga</span>
+                        <span className="text-slate-400 font-bold uppercase tracking-wider">{language === 'FR' ? "Détails" : "Details"}</span>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </div>
 
