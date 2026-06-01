@@ -5,8 +5,8 @@ import { HomeOverview } from './components/HomeOverview';
 import { LegacyPanel } from './components/LegacyPanel';
 import { ImpactDirectory } from './components/ImpactDirectory';
 import { VolunteerPortal } from './components/VolunteerPortal';
-import { BoardOfDirectors } from './components/BoardOfDirectors';
 import { GalleryView } from './components/GalleryView';
+import { PartnersSection } from './components/PartnersSection';
 import { 
   Heart, 
   Globe, 
@@ -83,7 +83,7 @@ export default function App() {
     { id: 'legacy', label: t.common.legacy },
     { id: 'impact', label: t.common.impact },
     { id: 'gallery', label: language === 'FR' ? "Galerie" : "Gallery" },
-    { id: 'board', label: t.common.board },
+    { id: 'partners', label: language === 'FR' ? "Partenaires" : "Partners" },
     { id: 'volunteer', label: t.common.volunteer }
   ];
 
@@ -242,7 +242,7 @@ export default function App() {
         {activeTab === 'legacy' && <LegacyPanel language={language} />}
         {activeTab === 'impact' && <ImpactDirectory language={language} />}
         {activeTab === 'gallery' && <GalleryView language={language} />}
-        {activeTab === 'board' && <BoardOfDirectors language={language} />}
+        {activeTab === 'partners' && <PartnersSection language={language} />}
         {activeTab === 'volunteer' && <VolunteerPortal language={language} />}
       </main>
 

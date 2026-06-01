@@ -11,7 +11,8 @@ import {
   Sparkles, 
   Heart, 
   GraduationCap, 
-  Building2 
+  Building2,
+  Handshake 
 } from 'lucide-react';
 
 const parseAndRenderStat = (statText: string) => {
@@ -299,6 +300,78 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
               </p>
               <p className="text-brand-gold text-[10px] font-mono mt-2 font-black uppercase tracking-wider">
                 {t.common.secondarySlogan}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="space-y-10 pt-4" id="partners-section">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-gold/10 rounded-full border border-brand-gold/20">
+            <Handshake className="h-4 w-4 text-[#D29A22]" />
+            <span className="font-mono text-[10px] text-brand-gold font-black uppercase tracking-widest leading-none">
+              {language === 'FR' ? "COLLABORATION & SYNERGIE" : "COLLABORATION & SYNERGY"}
+            </span>
+          </div>
+          <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-brand-navy tracking-tight">
+            {language === 'FR' ? "Nos Partenaires de Confiance" : "Our Trusted Partners"}
+          </h2>
+          <p className="font-sans text-xs sm:text-sm text-slate-500 leading-relaxed">
+            {language === 'FR'
+              ? "Ensemble, nous unissons nos forces avec des organisations locales et internationales de premier plan pour maximiser l'impact à Kananga et à travers la province du Kasaï-Central."
+              : "Together, we join forces with leading local and international organisations to deliver direct, sustainable value across Kananga and the Kasaï-Central province."}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Partner 1 */}
+          <div className="group bg-white rounded-[24px] border border-slate-200/80 p-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 shadow-md hover:shadow-xl transition-all duration-300 hover:border-brand-gold/35">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-1 ring-slate-105 bg-white p-2.5 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform duration-300">
+              <img 
+                src="https://i.postimg.cc/zv1cryDq/Whats-App-Image-2026-05-29-at-19-54-17.jpg" 
+                alt="Action Medeor Logo" 
+                referrerPolicy="no-referrer"
+                className="max-w-full max-h-full object-contain" 
+              />
+            </div>
+            <div className="space-y-2.5 flex-1">
+              <span className="inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest bg-emerald-50 text-[#125838] px-2.5 py-1 rounded-md uppercase">
+                {language === 'FR' ? "Aide Médicale & Santé" : "Medical Aid & Health"}
+              </span>
+              <h3 className="font-display font-black text-brand-navy text-base tracking-tight leading-snug">
+                {language === 'FR' ? "Action Medeor" : "Action Medeor"}
+              </h3>
+              <p className="font-sans text-xs text-slate-650 leading-relaxed font-semibold">
+                {language === 'FR'
+                  ? "Appui structurel en fournitures médicales stratégiques, installations d'hygiène et formations sanitaires auprès des dispensaires et centres hospitaliers de la sub-région."
+                  : "Structural supply of essential medicines, modern hygiene installations, and health capacity workshops for clinics and local health centers."}
+              </p>
+            </div>
+          </div>
+
+          {/* Partner 2 */}
+          <div className="group bg-white rounded-[24px] border border-slate-200/80 p-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 shadow-md hover:shadow-xl transition-all duration-300 hover:border-brand-gold/35">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-1 ring-slate-105 bg-white p-2.5 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform duration-300">
+              <img 
+                src="https://i.postimg.cc/hjV2pK8f/Whats-App-Image-2026-06-01-at-11-32-15.jpg" 
+                alt="Cooperative Partner Logo" 
+                referrerPolicy="no-referrer"
+                className="max-w-full max-h-full object-contain" 
+              />
+            </div>
+            <div className="space-y-2.5 flex-1">
+              <span className="inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest bg-emerald-50 text-[#125838] px-2.5 py-1 rounded-md uppercase">
+                {language === 'FR' ? "Autonomisation Féminine" : "Women Empowerment"}
+              </span>
+              <h3 className="font-display font-black text-brand-navy text-base tracking-tight leading-snug">
+                {language === 'FR' ? "Coopérative d'Épargne & Crédit" : "Savings & Credit Cooperative"}
+              </h3>
+              <p className="font-sans text-xs text-slate-650 leading-relaxed font-semibold">
+                {language === 'FR'
+                  ? "Soutien financier consultatif, micro-crédits d'accompagnement et accompagnement des coopératives agricoles féminines locales pour l'inclusion financière des ménages."
+                  : "Financial consultancy, micro-finance resources, and strategic guidance for local female-headed smallholder agrarian co-ops to foster domestic inclusion."}
               </p>
             </div>
           </div>
