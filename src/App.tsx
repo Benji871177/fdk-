@@ -304,11 +304,11 @@ export default function App() {
                 <div>
                   <span className="text-[10px] text-slate-400 font-sans block uppercase font-semibold tracking-wider mb-1">{t.common.phone}</span>
                   <div className="space-y-1">
-                    <a href="tel:+243992931101" className="text-sm font-bold text-slate-700 hover:text-brand-gold transition-colors block">
-                      Mr Serge Mputu Katekesha : <span className="font-mono text-xs font-medium text-slate-500 block sm:inline sm:ml-1">+243 992 931 101</span>
+                    <a href="tel:+243992931101" className="text-sm font-bold text-slate-700 hover:text-brand-gold transition-colors block font-mono">
+                      +243 992 931 101
                     </a>
-                    <a href="tel:+243844403007" className="text-sm font-bold text-slate-700 hover:text-brand-gold transition-colors block">
-                      Md Esther Umba Katekesha : <span className="font-mono text-xs font-medium text-slate-500 block sm:inline sm:ml-1">+243 844 403 007</span>
+                    <a href="tel:+243844403007" className="text-sm font-bold text-slate-700 hover:text-brand-gold transition-colors block font-mono">
+                      +243 844 403 007
                     </a>
                   </div>
                 </div>
