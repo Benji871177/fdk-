@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Language } from '../types';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Building2, 
   Handshake, 
@@ -10,7 +10,10 @@ import {
   Globe, 
   Heart,
   Shield, 
-  CheckCircle2 
+  CheckCircle2,
+  X,
+  Eye,
+  Search
 } from 'lucide-react';
 
 interface PartnersSectionProps {
@@ -19,34 +22,35 @@ interface PartnersSectionProps {
 
 export function PartnersSection({ language }: PartnersSectionProps) {
   const isFR = language === 'FR';
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   const partners = [
     {
-      id: 'action-medeor',
-      name: 'Action Medeor',
+      id: 'im-visuals',
+      name: 'IM',
       logo: 'https://i.postimg.cc/zv1cryDq/Whats-App-Image-2026-05-29-at-19-54-17.jpg',
-      category: isFR ? "Santé & Fournitures Médicales" : "Health & Medical Supply",
+      category: isFR ? "Visuels, Publicité & Affichage" : "Visuals, Advertising & Billboards",
       badgeColor: "bg-blue-50 text-blue-800 border-blue-200/50",
       description: isFR 
-        ? "Action Medeor, l'une des plus grandes organisations européennes d'aide médicale d'urgence, s'associe à la Fondation Dr François Katekesha pour renforcer l'accès aux soins de santé à Kananga. Grâce à ce partenariat de confiance, nous fournissons des médicaments essentiels de haute qualité, du matériel médical de pointe et des kits d'urgence sanitaire aux dispensaires et hôpitaux ruraux du Kasaï-Central."
-        : "Action Medeor, one of Europe's largest medical aid organisations, partners with the Dr François Katekesha Foundation to reinforce healthcare access in Kananga. Through this trusted alliance, we deliver high-quality essential medicines, advanced medical equipment, and emergency sanitary kits to local clinics and rural hospitals throughout Kasaï-Central.",
+        ? "IM est notre partenaire stratégique spécialisé dans la conception visuelle de pointe, la publicité d'impact et les campagnes sur panneaux d'affichage d'envergure à Kananga. Grâce à son expertise créative et son réseau logistique, IM amplifie les campagnes de sensibilisation à la santé publique et aux droits civiques menées par la Fondation Dr François Katekesha, assurant une visibilité optimale de nos actions solidaires."
+        : "IM is our strategic communication and media partner specializing in state-of-the-art visual design, corporate advertising campaigns, and high-impact roadside billboard solutions in Kananga. Leveraging their creative talent and physical assets, IM strengthens the Dr François Katekesha Foundation's regional outreach, making vital public health and education announcements highly visible to all local communities.",
       pillars: isFR 
-        ? ["Approvisionnement en médicaments essentiels", "Équipement de cliniques communautaires", "Kits de premiers secours & urgences"]
-        : ["Supply of essential medicines", "Community clinic equipment", "First aid & emergency response kits"],
-      link: "https://medeor.de/"
+        ? ["Conception graphique & identité visuelle", "Installation de panneaux d'affichage géants", "Campagnes de sensibilisation communautaire"]
+        : ["Graphic design & corporate visual identity", "Large-scale roadside billboards", "Civic & healthcare awareness campaigns"],
+      link: "#"
     },
     {
-      id: 'coocen',
-      name: isFR ? "Coopérative d'Épargne et de Crédit (COOCEN)" : "COOCEN Savings & Credit Coop",
+      id: 'prima-group',
+      name: 'Prima Group',
       logo: 'https://i.postimg.cc/hjV2pK8f/Whats-App-Image-2026-06-01-at-11-32-15.jpg',
-      category: isFR ? "Soutien & Autonomisation Financière" : "Financial Support & Empowerment",
+      category: isFR ? "BTP, Logistique & Exploitation" : "Construction, Supply Chain & Mining",
       badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200/50",
       description: isFR 
-        ? "Cette coopérative d'épargne et de crédit collabore activement avec la FDFK pour stimuler l'autonomisation socio-économique des femmes et des jeunes entrepreneurs de Kananga. En combinant l'éducation financière, la facilitation de micro-crédits et le soutien structuré aux coopératives agricoles locales, ce partenariat permet à des dizaines de foyers d'atteindre une véritable autosuffisance durable."
-        : "This mutual savings and credit cooperative collaborates closely with FDFK to foster the socio-economic empowerment of women and youth entrepreneurs in Kananga. By combining essential financial literacy workshops, micro-credit facilitation, and structured support for local smallholder agricultural clubs, this alliance enables dozens of families to achieve lasting self-reliance.",
+        ? "Prima Group est un groupe industriel leader spécialisé dans la construction d'infrastructures de génie civil, la chaîne d'approvisionnement logistique et l'exploitation minière responsable. Ce partenariat solide permet à la FDFK de moderniser les structures éducatives, de sécuriser l'approvisionnement matériel pour nos projets d'autonomisation et de poser les jalons d'un développement économique local durable."
+        : "Prima Group is a leading multi-sector industrial conglomerate specializing in advanced civil construction, robust global supply chain logistics, and community-conscious mining solutions. This powerful alliance secures critical engineering support for FDFK's school building projects, optimizes humanitarian logistics, and establishes sustainable pathways for regional economic revitalization.",
       pillars: isFR 
-        ? ["Facilitation de micro-crédits solidaires", "Formations en comptabilité et gestion", "Accompagnement des coopératives agricoles"]
-        : ["Solidarity micro-credit facilitation", "Basic bookkeeping & management training", "Support for agricultural self-help groups"],
+        ? ["Génie civil & construction d'écoles", "Chaîne logistique & fret humanitaire", "Initiatives de développement local RSE"]
+        : ["Civil engineering & school construction", "Supply chain & humanitarian distribution", "CSR-driven community development programs"],
       link: "#"
     }
   ];
@@ -67,10 +71,10 @@ export function PartnersSection({ language }: PartnersSectionProps) {
             {isFR ? "ALLIANCES STRATÉGIQUES" : "STRATEGIC ALLIANCES"}
           </span>
         </div>
-        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-brand-navy tracking-tight leading-none">
+        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-brand-navy tracking-tight leading-none font-sans">
           {isFR ? "Nos Partenariats de Confiance" : "Our Trusted Partnerships"}
         </h1>
-        <p className="font-sans text-xs sm:text-base text-slate-550 leading-relaxed font-medium">
+        <p className="font-sans text-xs sm:text-base text-slate-555 leading-relaxed font-semibold">
           {isFR
             ? "Pour maximiser notre impact à Kananga et à travers la province du Kasaï-Central, nous collaborons étroitement avec des organisations internationales et locales de premier plan dans les domaines de la santé, de l'éducation et du développement économique."
             : "To maximize our impact in Kananga and across the Kasaï-Central province, we collaborate closely with major international and local organizations dedicated to health, education, and sustainable economic development."}
@@ -85,20 +89,34 @@ export function PartnersSection({ language }: PartnersSectionProps) {
             className="group relative bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 hover:border-brand-gold/25 overflow-hidden"
           >
             {/* Visual background accents */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-gold/5 navigate-tab-active:from-emerald-500/10 rounded-bl-full opacity-30 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-gold/5 rounded-bl-full opacity-30 pointer-events-none" />
             <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(#C5A25D_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
 
             <div className="space-y-6 relative z-10">
               {/* Logo container and Badge Row */}
               <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 border-b border-slate-100 pb-5">
-                <div className="h-28 w-28 rounded-2xl bg-white border border-slate-150 p-3 shadow-md group-hover:scale-105 transition-all duration-300 flex items-center justify-center shrink-0">
+                
+                {/* Large Logo Aspect Wrapper with Lightbox click callback */}
+                <div 
+                  onClick={() => setZoomedImage(partner.logo)}
+                  className="h-32 w-32 sm:h-36 sm:w-36 rounded-2xl bg-white border border-slate-205 p-1 hover:p-0.5 shadow-md group-hover:scale-[1.03] hover:border-brand-gold/50 transition-all duration-300 flex items-center justify-center shrink-0 cursor-zoom-in relative overflow-hidden group/logo"
+                >
                   <img 
                     src={partner.logo} 
                     alt={`${partner.name} Logo`} 
                     referrerPolicy="no-referrer"
-                    className="max-h-full max-w-full object-contain select-none"
+                    className="max-h-full max-w-full object-contain rounded-xl select-none"
                   />
+                  
+                  {/* Subtle hovering text overlay for clarity */}
+                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/logo:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 backdrop-blur-3xs text-white">
+                    <Search className="h-5 w-5 text-brand-gold animate-bounce" />
+                    <span className="text-[9px] font-mono font-black uppercase tracking-wider bg-black/60 px-1.5 py-0.5 rounded-md">
+                      {isFR ? "Agrandir" : "Zoom"}
+                    </span>
+                  </div>
                 </div>
+
                 <div className="space-y-2 text-center sm:text-left flex-1">
                   <span className={`inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest px-3 py-1 rounded-md uppercase border ${partner.badgeColor}`}>
                     {partner.category}
@@ -207,6 +225,52 @@ export function PartnersSection({ language }: PartnersSectionProps) {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Modal overlay for Partners certificates/logos display */}
+      <AnimatePresence>
+        {zoomedImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setZoomedImage(null)}
+            className="fixed inset-0 bg-slate-950/90 z-50 flex items-center justify-center p-4 sm:p-10 backdrop-blur-sm cursor-zoom-out select-none"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image frame
+              className="relative max-w-4xl max-h-[85vh] bg-white rounded-3xl p-2.5 sm:p-4 shadow-2xl flex flex-col items-center justify-center border border-slate-750"
+            >
+              {/* Close Button overlay */}
+              <button
+                onClick={() => setZoomedImage(null)}
+                className="absolute -top-12 sm:top-4 -right-2 sm:right-4 h-10 w-10 rounded-full bg-black/60 text-white border border-white/20 flex items-center justify-center hover:bg-black/80 transition-all cursor-pointer z-50 scale-100"
+                title={isFR ? "Fermer" : "Close"}
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="w-full h-full flex items-center justify-center overflow-auto rounded-2xl bg-white p-1 max-h-[75vh]">
+                <img 
+                  src={zoomedImage} 
+                  alt={isFR ? "Aperçu de partenariat détaillé" : "Detailed Partnership View"} 
+                  referrerPolicy="no-referrer"
+                  className="max-w-full max-h-[70vh] object-contain rounded-xl select-none"
+                />
+              </div>
+
+              {/* Sub-label footer explaining zoom */}
+              <div className="pt-3 pb-1 text-center font-sans text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                {isFR ? "Document Officiel / Logo Partenaire • Cliquez n'importe où pour fermer" : "Official Document / Partner Logo • Click anywhere to close"}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </motion.div>
   );
 }

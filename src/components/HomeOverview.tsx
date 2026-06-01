@@ -328,50 +328,50 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Partner 1 */}
           <div className="group bg-white rounded-[24px] border border-slate-200/80 p-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 shadow-md hover:shadow-xl transition-all duration-300 hover:border-brand-gold/35">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-1 ring-slate-105 bg-white p-2.5 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform duration-300">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border border-slate-150 bg-white p-1 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-300">
               <img 
                 src="https://i.postimg.cc/zv1cryDq/Whats-App-Image-2026-05-29-at-19-54-17.jpg" 
-                alt="Action Medeor Logo" 
+                alt="IM Logo" 
                 referrerPolicy="no-referrer"
-                className="max-w-full max-h-full object-contain" 
+                className="w-full h-full object-contain rounded-xl select-none" 
               />
             </div>
-            <div className="space-y-2.5 flex-1">
+            <div className="space-y-2.5 flex-1 p-0.5">
               <span className="inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest bg-emerald-50 text-[#125838] px-2.5 py-1 rounded-md uppercase">
-                {language === 'FR' ? "Aide Médicale & Santé" : "Medical Aid & Health"}
+                {language === 'FR' ? "Visuels & Publicité" : "Visuals & Advertising"}
               </span>
               <h3 className="font-display font-black text-brand-navy text-base tracking-tight leading-snug">
-                {language === 'FR' ? "Action Medeor" : "Action Medeor"}
+                IM (Visuals & Advertising)
               </h3>
               <p className="font-sans text-xs text-slate-650 leading-relaxed font-semibold">
                 {language === 'FR'
-                  ? "Appui structurel en fournitures médicales stratégiques, installations d'hygiène et formations sanitaires auprès des dispensaires et centres hospitaliers de la sub-région."
-                  : "Structural supply of essential medicines, modern hygiene installations, and health capacity workshops for clinics and local health centers."}
+                  ? "Spécialiste de premier plan dans la communication visuelle, la publicité dynamique et l'affichage par panneaux routiers d'envergure, propulsant le rayonnement de nos actions."
+                  : "Leading specialist in visual communication, dynamic public advertising, and high-impact roadside billboard installations, expanding our community outreach."}
               </p>
             </div>
           </div>
 
           {/* Partner 2 */}
           <div className="group bg-white rounded-[24px] border border-slate-200/80 p-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 shadow-md hover:shadow-xl transition-all duration-300 hover:border-brand-gold/35">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden ring-1 ring-slate-105 bg-white p-2.5 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform duration-300">
+            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border border-slate-150 bg-white p-1 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-300">
               <img 
                 src="https://i.postimg.cc/hjV2pK8f/Whats-App-Image-2026-06-01-at-11-32-15.jpg" 
-                alt="Cooperative Partner Logo" 
+                alt="Prima Group Logo" 
                 referrerPolicy="no-referrer"
-                className="max-w-full max-h-full object-contain" 
+                className="w-full h-full object-contain rounded-xl select-none" 
               />
             </div>
-            <div className="space-y-2.5 flex-1">
+            <div className="space-y-2.5 flex-1 p-0.5">
               <span className="inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest bg-emerald-50 text-[#125838] px-2.5 py-1 rounded-md uppercase">
-                {language === 'FR' ? "Autonomisation Féminine" : "Women Empowerment"}
+                {language === 'FR' ? "Construction & Approvisionnement" : "Construction & Logistics"}
               </span>
               <h3 className="font-display font-black text-brand-navy text-base tracking-tight leading-snug">
-                {language === 'FR' ? "Coopérative d'Épargne & Crédit" : "Savings & Credit Cooperative"}
+                Prima Group
               </h3>
               <p className="font-sans text-xs text-slate-650 leading-relaxed font-semibold">
                 {language === 'FR'
-                  ? "Soutien financier consultatif, micro-crédits d'accompagnement et accompagnement des coopératives agricoles féminines locales pour l'inclusion financière des ménages."
-                  : "Financial consultancy, micro-finance resources, and strategic guidance for local female-headed smallholder agrarian co-ops to foster domestic inclusion."}
+                  ? "Acteur industriel majeur spécialisé dans le génie civil, la chaîne d'approvisionnement logistique et l'exploitation de ressources, soutenant nos projets d'infrastructure."
+                  : "Major industrial player specializing in civil construction, global supply chain logistics, and resource management, supporting our localized infrastructure builds."}
               </p>
             </div>
           </div>
