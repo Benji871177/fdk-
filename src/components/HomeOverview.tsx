@@ -325,55 +325,83 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Partner 1 */}
-          <div className="group bg-white rounded-[24px] border border-slate-200/80 p-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 shadow-md hover:shadow-xl transition-all duration-300 hover:border-brand-gold/35">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border border-slate-150 bg-white p-1 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-300">
-              <img 
-                src="https://i.postimg.cc/zv1cryDq/Whats-App-Image-2026-05-29-at-19-54-17.jpg" 
-                alt="IM Logo" 
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-contain rounded-xl select-none" 
-              />
-            </div>
-            <div className="space-y-2.5 flex-1 p-0.5">
-              <span className="inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest bg-emerald-50 text-[#125838] px-2.5 py-1 rounded-md uppercase">
-                {language === 'FR' ? "Visuels & Publicité" : "Visuals & Advertising"}
-              </span>
-              <h3 className="font-display font-black text-brand-navy text-base tracking-tight leading-snug">
-                IM (Visuals & Advertising)
-              </h3>
-              <p className="font-sans text-xs text-slate-650 leading-relaxed font-semibold">
-                {language === 'FR'
-                  ? "Spécialiste de premier plan dans la communication visuelle, la publicité dynamique et l'affichage par panneaux routiers d'envergure, propulsant le rayonnement de nos actions."
-                  : "Leading specialist in visual communication, dynamic public advertising, and high-impact roadside billboard installations, expanding our community outreach."}
-              </p>
-            </div>
-          </div>
+        {/* CSS For Seamless Infinite Horizontal Scrolling Marquee */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes home-partners-marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .home-partners-marquee-track {
+            display: flex;
+            width: max-content;
+            animation: home-partners-marquee 25s linear infinite;
+          }
+          .home-partners-marquee-track:hover {
+            animation-play-state: paused;
+          }
+        `}} />
 
-          {/* Partner 2 */}
-          <div className="group bg-white rounded-[24px] border border-slate-200/80 p-6 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 shadow-md hover:shadow-xl transition-all duration-300 hover:border-brand-gold/35">
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border border-slate-150 bg-white p-1 flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-300">
-              <img 
-                src="https://i.postimg.cc/hjV2pK8f/Whats-App-Image-2026-06-01-at-11-32-15.jpg" 
-                alt="Prima Group Logo" 
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-contain rounded-xl select-none" 
-              />
-            </div>
-            <div className="space-y-2.5 flex-1 p-0.5">
-              <span className="inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest bg-emerald-50 text-[#125838] px-2.5 py-1 rounded-md uppercase">
-                {language === 'FR' ? "Construction & Approvisionnement" : "Construction & Logistics"}
-              </span>
-              <h3 className="font-display font-black text-brand-navy text-base tracking-tight leading-snug">
-                Prima Group
-              </h3>
-              <p className="font-sans text-xs text-slate-650 leading-relaxed font-semibold">
-                {language === 'FR'
-                  ? "Acteur industriel majeur spécialisé dans le génie civil, la chaîne d'approvisionnement logistique et l'exploitation de ressources, soutenant nos projets d'infrastructure."
-                  : "Major industrial player specializing in civil construction, global supply chain logistics, and resource management, supporting our localized infrastructure builds."}
-              </p>
-            </div>
+        {/* Infinite Scrolling Ticker Container */}
+        <div className="relative w-full overflow-hidden py-8 bg-slate-50/80 border border-slate-200/60 rounded-[32px] shadow-xs">
+          {/* Soft Left and Right Gradient Fades to mask entrance/exit */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-50/90 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-50/90 to-transparent z-10 pointer-events-none" />
+
+          <div className="home-partners-marquee-track gap-6 sm:gap-8 flex items-center pr-6 sm:pr-8">
+            {/* Duplicated for smooth loop translation */}
+            {[
+              {
+                id: 'im-visuals',
+                name: 'IM',
+                logo: 'https://i.postimg.cc/zv1cryDq/Whats-App-Image-2026-05-29-at-19-54-17.jpg',
+                category: language === 'FR' ? "Visuels, Publicité & Affichage" : "Visuals, Advertising & Billboards",
+                badgeColor: "bg-blue-50 text-blue-800 border-blue-200/50"
+              },
+              {
+                id: 'prima-group',
+                name: 'Prima Group',
+                logo: 'https://i.postimg.cc/hjV2pK8f/Whats-App-Image-2026-06-01-at-11-32-15.jpg',
+                category: language === 'FR' ? "BTP, Logistique & Exploitation" : "Construction, Supply Chain & Mining",
+                badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200/50"
+              },
+              {
+                id: 'akili-tech',
+                name: 'Akili',
+                logo: 'https://i.postimg.cc/ncH83vZz/Akili-logo-Transp-(1).png',
+                category: language === 'FR' ? "Technologies, Éducation & Innovation" : "Tech, Digital Literacy & Innovation",
+                badgeColor: "bg-indigo-50 text-indigo-800 border-indigo-200/50"
+              }
+            ].reduce((acc, current) => [...acc, current, current], [] as any[]).map((partner, index) => (
+              <div 
+                key={`${partner.id}-${index}`}
+                className="group relative bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 flex items-center gap-5 sm:gap-6 shadow-xs hover:shadow-md transition-all duration-300 hover:border-brand-gold/30 shrink-0 w-[280px] sm:w-[350px] overflow-hidden select-none"
+              >
+                {/* Decorative background visual icon indicator overlay */}
+                <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-brand-gold/5 rounded-bl-full pointer-events-none" />
+                
+                <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-xl bg-white border border-slate-150 p-1.5 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform duration-300 overflow-hidden">
+                  <img 
+                    src={partner.logo} 
+                    alt={`${partner.name} logo`} 
+                    referrerPolicy="no-referrer"
+                    className="max-h-full max-w-full object-contain rounded select-none"
+                  />
+                </div>
+
+                <div className="flex-1 min-w-0 text-left space-y-1.5">
+                  <span className={`inline-flex items-center text-[8px] sm:text-[9px] font-extrabold tracking-wider px-2.5 py-0.5 rounded uppercase border ${partner.badgeColor} leading-none`}>
+                    {partner.category}
+                  </span>
+                  <h3 className="font-display font-black text-brand-navy text-sm sm:text-base tracking-tight leading-none truncate">
+                    {partner.name}
+                  </h3>
+                  <div className="flex items-center gap-1 text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest leading-none">
+                    <Sparkles className="h-2.5 w-2.5 text-brand-gold shrink-0" />
+                    <span>{language === 'FR' ? "Partenaire Officiel" : "Official Partner"}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

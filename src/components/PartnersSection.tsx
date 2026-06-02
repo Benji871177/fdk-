@@ -52,6 +52,20 @@ export function PartnersSection({ language }: PartnersSectionProps) {
         ? ["Génie civil & construction d'écoles", "Chaîne logistique & fret humanitaire", "Initiatives de développement local RSE"]
         : ["Civil engineering & school construction", "Supply chain & humanitarian distribution", "CSR-driven community development programs"],
       link: "#"
+    },
+    {
+      id: 'akili-tech',
+      name: 'Akili',
+      logo: 'https://i.postimg.cc/ncH83vZz/Akili-logo-Transp-(1).png',
+      category: isFR ? "Technologies, Éducation & Innovation" : "Tech, Digital Literacy & Innovation",
+      badgeColor: "bg-indigo-50 text-indigo-800 border-indigo-200/50",
+      description: isFR 
+        ? "Akili est un partenaire d'innovation technologique de premier plan dédié à l'accélération numérique et à l'éducation inclusive à Kananga. Grâce à ce partenariat de confiance avec la FDFK, Akili soutient l'équipement et l'animation de laboratoires de formation aux compétences informatiques pour la jeunesse locale. Ensemble, nous soutenons l'émergence de talents technologiques essentiels pour l'avenir de la province du Kasaï-Central."
+        : "Akili is a leading technology and innovation partner committed to digital acceleration and inclusive computer literacy in Kananga. Through this trusted alliance with FDFK, Akili operates high-standard digital training and software workshop labs for local youth. Together, we are building local technical capabilities and job-readiness essential for Kasaï-Central's economic future.",
+      pillars: isFR 
+        ? ["Laboratoires informatiques d'apprentissage", "Formations professionnelles en bureautique et technologies", "Rapprocher la jeunesse de l'inclusion numérique"]
+        : ["Computer training and hardware workspace labs", "Vocational digital & software skills coaching", "Bridging the local digital divide for youth"],
+      link: "#"
     }
   ];
 
@@ -76,104 +90,68 @@ export function PartnersSection({ language }: PartnersSectionProps) {
         </h1>
         <p className="font-sans text-xs sm:text-base text-slate-555 leading-relaxed font-semibold">
           {isFR
-            ? "Pour maximiser notre impact à Kananga et à travers la province du Kasaï-Central, nous collaborons étroitement avec des organisations internationales et locales de premier plan dans les domaines de la santé, de l'éducation et du développement économique."
-            : "To maximize our impact in Kananga and across the Kasaï-Central province, we collaborate closely with major international and local organizations dedicated to health, education, and sustainable economic development."}
+            ? "Pour maximiser notre impact à Kananga et à travers la province du Kasaï-Central, nous collaborons étroitement avec des organisations internationales et locales de premier plan."
+            : "To maximize our impact in Kananga and across the Kasaï-Central province, we collaborate closely with major international and local organizations."}
         </p>
       </div>
 
-      {/* Grid of Partners */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
-        {partners.map((partner) => (
-          <div 
-            key={partner.id}
-            className="group relative bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 hover:border-brand-gold/25 overflow-hidden"
-          >
-            {/* Visual background accents */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-gold/5 rounded-bl-full opacity-30 pointer-events-none" />
-            <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(#C5A25D_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
+      {/* CSS For Seamless Infinite Horizontal Scrolling Marquee */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes partners-marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        .partners-marquee-track {
+          display: flex;
+          width: max-content;
+          animation: partners-marquee 25s linear infinite;
+        }
+        .partners-marquee-track:hover {
+          animation-play-state: paused;
+        }
+      `}} />
 
-            <div className="space-y-6 relative z-10">
-              {/* Logo container and Badge Row */}
-              <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 border-b border-slate-100 pb-5">
-                
-                {/* Large Logo Aspect Wrapper with Lightbox click callback */}
-                <div 
-                  onClick={() => setZoomedImage(partner.logo)}
-                  className="h-32 w-32 sm:h-36 sm:w-36 rounded-2xl bg-white border border-slate-205 p-1 hover:p-0.5 shadow-md group-hover:scale-[1.03] hover:border-brand-gold/50 transition-all duration-300 flex items-center justify-center shrink-0 cursor-zoom-in relative overflow-hidden group/logo"
-                >
-                  <img 
-                    src={partner.logo} 
-                    alt={`${partner.name} Logo`} 
-                    referrerPolicy="no-referrer"
-                    className="max-h-full max-w-full object-contain rounded-xl select-none"
-                  />
-                  
-                  {/* Subtle hovering text overlay for clarity */}
-                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover/logo:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 backdrop-blur-3xs text-white">
-                    <Search className="h-5 w-5 text-brand-gold animate-bounce" />
-                    <span className="text-[9px] font-mono font-black uppercase tracking-wider bg-black/60 px-1.5 py-0.5 rounded-md">
-                      {isFR ? "Agrandir" : "Zoom"}
-                    </span>
-                  </div>
-                </div>
+      {/* Infinite Scrolling Ticker Container */}
+      <div className="relative w-full overflow-hidden py-10 bg-slate-50/80 border border-slate-200/60 rounded-[32px] shadow-xs">
+        {/* Soft Left and Right Gradient Fades to mask entrance/exit */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-slate-50/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-slate-50/90 to-transparent z-10 pointer-events-none" />
 
-                <div className="space-y-2 text-center sm:text-left flex-1">
-                  <span className={`inline-flex items-center gap-1 text-[9px] font-extrabold tracking-widest px-3 py-1 rounded-md uppercase border ${partner.badgeColor}`}>
-                    {partner.category}
-                  </span>
-                  <h2 className="font-display font-black text-brand-navy text-lg sm:text-xl tracking-tight leading-snug">
-                    {partner.name}
-                  </h2>
-                </div>
-              </div>
-
-              {/* Description and Key Pillars */}
-              <div className="space-y-4">
-                <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed font-semibold text-justify">
-                  {partner.description}
-                </p>
-
-                {/* Key Action Areas */}
-                <div className="space-y-2 pt-2">
-                  <h4 className="font-display font-bold text-[#125838] uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-                    <Shield className="h-3 w-3 text-brand-gold" />
-                    <span>{isFR ? "Axe majeur d'intervention" : "Major action areas"}</span>
-                  </h4>
-                  <ul className="grid grid-cols-1 gap-2">
-                    {partner.pillars.map((pillar, index) => (
-                      <li key={index} className="flex items-start gap-2 text-xs text-slate-550 font-sans font-medium">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{pillar}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Actions inside Card */}
-            <div className="border-t border-slate-100 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 relative z-10 w-full">
-              <span className="text-[10px] font-mono tracking-widest uppercase font-extrabold flex items-center gap-1.5">
-                <Sparkles className="h-3 w-3 text-brand-gold animate-pulse" />
-                <span>{isFR ? "Partenariat Validé" : "Validated Alliance"}</span>
-              </span>
+        <div className="partners-marquee-track gap-6 sm:gap-8 flex items-center pr-6 sm:pr-8">
+          {/* Loop twice so that moving -50% creates a seamless looping transition across all partners */}
+          {[...partners, ...partners].map((partner, index) => (
+            <div 
+              key={`${partner.id}-${index}`}
+              onClick={() => setZoomedImage(partner.logo)}
+              className="group relative bg-white rounded-2xl border border-slate-200/90 p-4 sm:p-5 flex items-center gap-5 sm:gap-6 shadow-xs hover:shadow-md transition-all duration-300 hover:border-brand-gold/30 cursor-zoom-in shrink-0 w-[280px] sm:w-[360px] overflow-hidden select-none"
+            >
+              {/* Decorative accent design */}
+              <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-brand-gold/5 rounded-bl-full pointer-events-none" />
               
-              {partner.link !== "#" && (
-                <a 
-                  href={partner.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 bg-slate-50 hover:bg-slate-100 hover:text-brand-navy-light text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200/80 text-xs font-bold tracking-wide transition-all cursor-pointer"
-                >
-                  <Globe className="h-3.5 w-3.5 text-brand-[#125838]" />
-                  <span>{isFR ? "Visiter le portail officiel" : "Visit Official Portal"}</span>
-                  <ArrowUpRight className="h-3 w-3" />
-                </a>
-              )}
-            </div>
+              <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-xl bg-white border border-slate-150 p-1.5 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-105 transition-transform duration-300 overflow-hidden">
+                <img 
+                  src={partner.logo} 
+                  alt={`${partner.name} logo`} 
+                  referrerPolicy="no-referrer"
+                  className="max-h-full max-w-full object-contain rounded select-none"
+                />
+              </div>
 
-          </div>
-        ))}
+              <div className="flex-1 min-w-0 text-left space-y-1.5">
+                <span className={`inline-flex items-center text-[8px] sm:text-[9px] font-extrabold tracking-wider px-2.5 py-0.5 rounded uppercase border ${partner.badgeColor} leading-none`}>
+                  {partner.category}
+                </span>
+                <h3 className="font-display font-black text-brand-navy text-sm sm:text-base tracking-tight leading-none truncate">
+                  {partner.name}
+                </h3>
+                <div className="flex items-center gap-1 text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest leading-none">
+                  <Sparkles className="h-2.5 w-2.5 text-brand-gold animate-pulse shrink-0" />
+                  <span>{isFR ? "Agrandir" : "Zoom Logo"}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Strategic Synergy Block / Partner Call To Action */}
