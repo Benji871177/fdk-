@@ -12,7 +12,11 @@ import {
   Heart, 
   GraduationCap, 
   Building2,
-  Handshake 
+  Handshake,
+  Camera,
+  ArrowLeftRight,
+  Layers,
+  Image as ImageIcon
 } from 'lucide-react';
 
 const parseAndRenderStat = (statText: string) => {
@@ -185,21 +189,30 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
             initial={{ x: 120, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.38 }}
-            className="flex flex-wrap gap-4 pt-4 lg:justify-center"
+            className="flex flex-wrap gap-3.5 pt-4 lg:justify-center"
           >
             <button
               id="hero-cta-volunteer"
               onClick={() => onNavigate('volunteer')}
-              className="group flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-brand-gold to-[#D97706] hover:from-[#B4843A] hover:to-[#B45309] px-7 py-4 text-xs font-black tracking-wider uppercase text-slate-950 transition-all shadow-lg hover:shadow-brand-gold/15 cursor-pointer border border-[#FFD88F]/25"
+              className="group flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-brand-gold to-[#D97706] hover:from-[#B4843A] hover:to-[#B45309] px-6 sm:px-7 py-3.5 sm:py-4 text-xs font-black tracking-wider uppercase text-slate-950 transition-all shadow-lg hover:shadow-brand-gold/15 cursor-pointer border border-[#FFD88F]/25"
             >
               <span>{t.home.ctaVolunteerButton}</span>
               <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-1 text-slate-950" />
             </button>
 
             <button
+              id="hero-cta-gallery"
+              onClick={() => onNavigate('gallery')}
+              className="group flex items-center gap-2 rounded-xl bg-emerald-600/90 hover:bg-emerald-600 px-6 sm:px-7 py-3.5 sm:py-4 text-xs font-black tracking-wider uppercase text-white transition-all shadow-lg hover:shadow-emerald-900/30 cursor-pointer border border-emerald-400/30 backdrop-blur-md"
+            >
+              <Camera className="h-4 w-4 text-brand-gold" />
+              <span>{language === 'FR' ? "Galerie Photos (13)" : "Photo Gallery (13)"}</span>
+            </button>
+
+            <button
               id="hero-cta-partner"
               onClick={() => onNavigate('volunteer')}
-              className="rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 px-7 py-4 text-xs font-black tracking-wider uppercase text-white transition-all backdrop-blur-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 px-6 sm:px-7 py-3.5 sm:py-4 text-xs font-black tracking-wider uppercase text-white transition-all backdrop-blur-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
               {t.home.ctaPartnerButton}
             </button>
@@ -302,6 +315,96 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({ language, onNavigate
                 {t.common.secondarySlogan}
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Impact & Fieldwork Photos Teaser Section */}
+      <section className="bg-gradient-to-br from-brand-navy via-slate-900 to-brand-navy rounded-[32px] p-6 sm:p-10 text-white shadow-xl border border-white/10 relative overflow-hidden text-left">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-2">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-black uppercase tracking-widest text-brand-gold bg-brand-gold/10 px-3 py-1 rounded-full border border-brand-gold/20">
+                <Camera className="h-3.5 w-3.5 text-brand-gold" />
+                <span>{language === 'FR' ? "MÉMOIRE VISUELLE & TERRAIN" : "VISUAL FIELD REPOSITORY"}</span>
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight">
+                {language === 'FR' ? "Photos d'Impact & Transformations Avant / Après" : "Impact Photos & Before / After Transformations"}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-2xl leading-relaxed">
+                {language === 'FR'
+                  ? "Explorez plus de 13 photographies officielles documentant la métamorphose des sites, les distributions de kits scolaires et l'autonomisation des femmes à Kananga."
+                  : "Explore 13+ official field photos documenting site transformations, school supplies distributions, and women's empowerment initiatives across Kananga."}
+              </p>
+            </div>
+
+            <button
+              onClick={() => onNavigate('gallery')}
+              className="inline-flex items-center gap-2 bg-brand-gold hover:bg-amber-400 text-brand-navy px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:scale-105 cursor-pointer shrink-0"
+            >
+              <ArrowLeftRight className="h-4 w-4" />
+              <span>{language === 'FR' ? "Voir la Galerie Complète (13+)" : "View Full Gallery (13+)"}</span>
+            </button>
+          </div>
+
+          {/* Quick interactive teaser cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-2">
+            {[
+              {
+                title: language === 'FR' ? "Cadre Scolaire & Kits" : "School Kits & Learning",
+                sub: language === 'FR' ? "Transformation Avant / Après" : "Before / After Transformation",
+                img: "https://i.postimg.cc/vHWpTYTz/Whats-App-Image-2026-05-24-at-14-15-00-(5).jpg",
+                tag: language === 'FR' ? "ÉDUCATION" : "EDUCATION"
+              },
+              {
+                title: language === 'FR' ? "Autonomie des Femmes" : "Women's Empowerment",
+                sub: language === 'FR' ? "Coopératives Solidaires" : "Solidarity Networks",
+                img: "https://i.postimg.cc/5yDk0GdG/Whats-App-Image-2026-05-24-at-14-14-59-(1).jpg",
+                tag: language === 'FR' ? "AUTONOMIE" : "WOMEN"
+              },
+              {
+                title: language === 'FR' ? "Locaux Communautaires" : "Community Halls",
+                sub: language === 'FR' ? "Équipements Sociaux" : "Social Equipment",
+                img: "https://i.postimg.cc/VNGywKv6/Whats-App-Image-2026-05-24-at-14-14-59.jpg",
+                tag: language === 'FR' ? "SOCIAL" : "SOCIAL"
+              },
+              {
+                title: language === 'FR' ? "Mobilisation Citoyenne" : "Civic Mobilization",
+                sub: language === 'FR' ? "Concertations Kananga" : "Community Assemblies",
+                img: "https://i.postimg.cc/9ffSLypZ/Whats-App-Image-2026-05-24-at-14-15-00-(6).jpg",
+                tag: language === 'FR' ? "CITOYENNETÉ" : "CIVIC"
+              }
+            ].map((card, i) => (
+              <div
+                key={i}
+                onClick={() => onNavigate('gallery')}
+                className="group relative h-44 sm:h-52 rounded-2xl overflow-hidden cursor-pointer border border-white/15 hover:border-brand-gold transition-all duration-300 shadow-md hover:shadow-xl"
+              >
+                <img
+                  src={card.img}
+                  alt={card.title}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                <div className="absolute top-2.5 left-2.5">
+                  <span className="text-[8px] font-mono font-black text-brand-gold bg-black/70 px-2 py-0.5 rounded backdrop-blur-md uppercase border border-white/10">
+                    {card.tag}
+                  </span>
+                </div>
+                <div className="absolute bottom-3 left-3 right-3 space-y-0.5 text-left">
+                  <h4 className="font-display font-black text-xs text-white leading-tight line-clamp-1 group-hover:text-brand-gold transition-colors">
+                    {card.title}
+                  </h4>
+                  <p className="text-[9px] text-slate-300 font-sans line-clamp-1">
+                    {card.sub}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
